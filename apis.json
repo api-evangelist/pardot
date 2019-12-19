@@ -1,0 +1,56 @@
+{
+    "name": "Pardot",
+    "description": "Pardot B2B marketing automation by Salesforce helps marketers create more leads, generate more pipeline, and empower sales to close more deals.",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/884-pardot.jpg",
+    "tags": [
+        "automation",
+        "have api"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/pardot\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Pardot",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/884-pardot.jpg",
+            "humanURL": "http:\/\/www.pardot.com\/",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/pardot-openapi.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Blog",
+            "url": "http:\/\/blog.pardot.com"
+        },
+        {
+            "type": "Blog RSS",
+            "url": "http:\/\/www.pardot.com\/feed\/"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "http:\/\/www.crunchbase.com\/company\/pardot"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/pardot"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/Pardot"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/www.pardot.com\/"
+        }
+    ]
+}
