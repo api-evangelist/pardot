@@ -1,0 +1,106 @@
+aid: pardot
+name: Salesforce Marketing Cloud Account Engagement (Pardot)
+description: >-
+  Salesforce Marketing Cloud Account Engagement, formerly known as Pardot, is
+  a B2B marketing automation platform tightly integrated with Salesforce CRM
+  for lead generation, lead nurturing, email marketing, and marketing ROI
+  reporting. The platform provides campaigns, forms, landing pages, dynamic
+  content, lead scoring/grading, and Engagement Studio for multi-step nurture
+  programs. Version 5 of the Account Engagement REST API uses Salesforce
+  OAuth 2.0 authentication and requires a Business Unit ID header, with hosts
+  at pi.pardot.com (production) and pi.demo.pardot.com (sandbox).
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Marketing Automation
+  - B2B Marketing
+  - Lead Generation
+  - Email Marketing
+  - Salesforce
+  - Account Engagement
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/pardot/refs/heads/main/apis.yml
+created: '2026-05-11'
+modified: '2026-05-11'
+specificationVersion: '0.19'
+apis:
+  - aid: pardot:account-engagement-api-v5
+    name: Account Engagement API v5
+    description: >-
+      Version 5 REST API for managing prospects, accounts, campaigns, emails,
+      forms, lists, and engagement programs in Marketing Cloud Account
+      Engagement. Authentication uses Salesforce OAuth 2.0 with the
+      pardot_api scope and the Pardot-Business-Unit-Id header.
+    humanURL: >-
+      https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    baseURL: https://pi.pardot.com/api/v5
+    tags:
+      - Marketing Automation
+      - Prospects
+      - Campaigns
+      - Email Marketing
+    properties:
+      - type: Documentation
+        url: >-
+          https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+      - type: Authentication
+        url: >-
+          https://developer.salesforce.com/docs/marketing/pardot/guide/authentication.html
+      - type: Getting Started
+        url: >-
+          https://developer.salesforce.com/docs/marketing/pardot/guide/getting-started.html
+  - aid: pardot:account-engagement-api-v4
+    name: Account Engagement API v3/v4 (Legacy)
+    description: >-
+      Legacy v3/v4 REST API endpoints for Pardot resources. Still supported
+      for many objects not yet migrated to v5; uses the same Salesforce
+      OAuth 2.0 authentication scheme.
+    humanURL: >-
+      https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
+    baseURL: https://pi.pardot.com/api
+    tags:
+      - Marketing Automation
+      - Legacy API
+      - Prospects
+    properties:
+      - type: Documentation
+        url: >-
+          https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
+
+common:
+  - type: Website
+    url: https://www.salesforce.com/marketing/b2b-automation/
+  - type: Documentation
+    url: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
+  - type: Pricing
+    url: https://www.salesforce.com/marketing/b2b-automation/pricing/
+  - type: Sign Up
+    url: https://www.salesforce.com/form/signup/freetrial-b2bma/
+features:
+  - name: Lead Scoring and Grading
+    description: >-
+      Quantitative scoring of prospect engagement combined with qualitative
+      grading of fit against an ideal customer profile.
+  - name: Engagement Studio
+    description: >-
+      Visual builder for multi-step, branching nurture programs that respond
+      to prospect behavior over time.
+  - name: Forms and Landing Pages
+    description: >-
+      Capture leads via Pardot-hosted forms, form handlers, and landing
+      pages that feed Salesforce campaigns.
+  - name: Email Marketing
+    description: >-
+      Send list, automated, and one-to-one emails with dynamic content,
+      A/B testing, and engagement metrics.
+  - name: Salesforce CRM Integration
+    description: >-
+      Bi-directional sync with Salesforce Sales Cloud for unified lead and
+      opportunity data, campaign influence reporting, and ROI analysis.
+  - name: B2B Marketing Analytics
+    description: >-
+      Pre-built CRM Analytics dashboards for pipeline contribution,
+      account engagement, and marketing ROI measurement.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
