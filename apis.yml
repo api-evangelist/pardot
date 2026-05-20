@@ -68,6 +68,8 @@ apis:
           https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
 
 common:
+  - type: GitHubOrganization
+    url: https://github.com/pardot
   - type: Website
     url: https://www.salesforce.com/marketing/b2b-automation/
   - type: Documentation
