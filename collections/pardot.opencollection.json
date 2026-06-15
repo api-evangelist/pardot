@@ -1,0 +1,539 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Salesforce Account Engagement (Pardot) API v5",
+    "version": "5.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://login.salesforce.com/services/oauth2/authorize",
+      "accessTokenUrl": "https://login.salesforce.com/services/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Query prospects",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/prospects",
+        "params": [
+          {
+            "name": "fields",
+            "value": "",
+            "type": "query"
+          }
+        ]
+      },
+      "docs": "Query prospects"
+    },
+    {
+      "info": {
+        "name": "Create a prospect",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://pi.pardot.com/api/v5/objects/prospects",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create a prospect"
+    },
+    {
+      "info": {
+        "name": "Read a prospect",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/prospects/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "fields",
+            "value": "",
+            "type": "query"
+          }
+        ]
+      },
+      "docs": "Read a prospect"
+    },
+    {
+      "info": {
+        "name": "Update a prospect",
+        "type": "http"
+      },
+      "http": {
+        "method": "PATCH",
+        "url": "https://pi.pardot.com/api/v5/objects/prospects/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update a prospect"
+    },
+    {
+      "info": {
+        "name": "Delete a prospect",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://pi.pardot.com/api/v5/objects/prospects/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Delete a prospect"
+    },
+    {
+      "info": {
+        "name": "Query campaigns",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/campaigns",
+        "params": [
+          {
+            "name": "fields",
+            "value": "",
+            "type": "query"
+          }
+        ]
+      },
+      "docs": "Query campaigns"
+    },
+    {
+      "info": {
+        "name": "Create a campaign",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://pi.pardot.com/api/v5/objects/campaigns",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create a campaign"
+    },
+    {
+      "info": {
+        "name": "Read a campaign",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/campaigns/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Read a campaign"
+    },
+    {
+      "info": {
+        "name": "Update a campaign",
+        "type": "http"
+      },
+      "http": {
+        "method": "PATCH",
+        "url": "https://pi.pardot.com/api/v5/objects/campaigns/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update a campaign"
+    },
+    {
+      "info": {
+        "name": "Query lists",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/lists"
+      },
+      "docs": "Query lists"
+    },
+    {
+      "info": {
+        "name": "Create a list",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://pi.pardot.com/api/v5/objects/lists",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create a list"
+    },
+    {
+      "info": {
+        "name": "Read a list",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/lists/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Read a list"
+    },
+    {
+      "info": {
+        "name": "Update a list",
+        "type": "http"
+      },
+      "http": {
+        "method": "PATCH",
+        "url": "https://pi.pardot.com/api/v5/objects/lists/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update a list"
+    },
+    {
+      "info": {
+        "name": "Delete a list",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://pi.pardot.com/api/v5/objects/lists/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Delete a list"
+    },
+    {
+      "info": {
+        "name": "Query list memberships",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/list-memberships"
+      },
+      "docs": "Query list memberships"
+    },
+    {
+      "info": {
+        "name": "Create a list membership",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://pi.pardot.com/api/v5/objects/list-memberships",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create a list membership"
+    },
+    {
+      "info": {
+        "name": "Query opportunities",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/opportunities"
+      },
+      "docs": "Query opportunities"
+    },
+    {
+      "info": {
+        "name": "Read an opportunity",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/opportunities/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Read an opportunity"
+    },
+    {
+      "info": {
+        "name": "Query emails",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/emails"
+      },
+      "docs": "Query emails"
+    },
+    {
+      "info": {
+        "name": "Create / send an email",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://pi.pardot.com/api/v5/objects/emails",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create / send an email"
+    },
+    {
+      "info": {
+        "name": "Read an email",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/emails/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Read an email"
+    },
+    {
+      "info": {
+        "name": "Query forms",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/forms"
+      },
+      "docs": "Query forms"
+    },
+    {
+      "info": {
+        "name": "Read a form",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/forms/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Read a form"
+    },
+    {
+      "info": {
+        "name": "Query visits",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/visits"
+      },
+      "docs": "Query visits"
+    },
+    {
+      "info": {
+        "name": "Query visitors",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/visitors"
+      },
+      "docs": "Query visitors"
+    },
+    {
+      "info": {
+        "name": "Query custom fields",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/custom-fields"
+      },
+      "docs": "Query custom fields"
+    },
+    {
+      "info": {
+        "name": "Create a custom field",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://pi.pardot.com/api/v5/objects/custom-fields",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create a custom field"
+    },
+    {
+      "info": {
+        "name": "Query custom redirects",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/custom-redirects"
+      },
+      "docs": "Query custom redirects"
+    },
+    {
+      "info": {
+        "name": "Query dynamic content",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/dynamic-content"
+      },
+      "docs": "Query dynamic content"
+    },
+    {
+      "info": {
+        "name": "Query files",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/files"
+      },
+      "docs": "Query files"
+    },
+    {
+      "info": {
+        "name": "Query folders",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/folders"
+      },
+      "docs": "Query folders"
+    },
+    {
+      "info": {
+        "name": "Query tags",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/tags"
+      },
+      "docs": "Query tags"
+    },
+    {
+      "info": {
+        "name": "Query tracker domains",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/tracker-domains"
+      },
+      "docs": "Query tracker domains"
+    },
+    {
+      "info": {
+        "name": "Query users",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/users"
+      },
+      "docs": "Query users"
+    },
+    {
+      "info": {
+        "name": "Query layout templates",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://pi.pardot.com/api/v5/objects/layout-templates"
+      },
+      "docs": "Query layout templates"
+    }
+  ],
+  "bundled": true
+}
