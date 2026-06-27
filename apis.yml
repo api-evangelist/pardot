@@ -76,7 +76,7 @@ common:
     url: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
   - type: Pricing
     url: https://www.salesforce.com/marketing/b2b-automation/pricing/
-  - type: SignUp
+  - type: Signup
     url: https://www.salesforce.com/form/signup/freetrial-b2bma/
 features:
   - name: Lead Scoring and Grading
