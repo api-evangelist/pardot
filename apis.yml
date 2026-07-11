@@ -68,6 +68,12 @@ apis:
           https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
 
 common:
+  - type: VulnerabilityDisclosure
+    url: security/pardot-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/pardot-domain-security.yml
+  - type: Authentication
+    url: authentication/pardot-authentication.yml
   - type: OAuthScopes
     url: scopes/pardot-scopes.yml
   - type: GitHubOrganization

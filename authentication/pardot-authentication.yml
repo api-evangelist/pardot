@@ -1,0 +1,22 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/pardot-openapi.yml
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: BearerAuth
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://login.salesforce.com/services/oauth2/authorize
+    tokenUrl: https://login.salesforce.com/services/oauth2/token
+    scopes: 1
+  description: |-
+    Authenticate via Salesforce OAuth2 and pass the resulting access
+    token as `Authorization: Bearer {token}`. The `Pardot-Business-Unit-Id`
+    header is also required on every request.
+  sources:
+  - openapi/pardot-openapi.yml
