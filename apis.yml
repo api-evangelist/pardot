@@ -68,6 +68,8 @@ apis:
           https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
 
 common:
+  - type: OAuthScopes
+    url: scopes/pardot-scopes.yml
   - type: GitHubOrganization
     url: https://github.com/pardot
   - type: Website
