@@ -68,6 +68,8 @@ apis:
           https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/pardot-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/pardot-vulnerability-disclosure.yml
   - type: DomainSecurity
