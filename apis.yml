@@ -10,7 +10,19 @@ description: >-
   OAuth 2.0 authentication and requires a Business Unit ID header, with hosts
   at pi.pardot.com (production) and pi.demo.pardot.com (sandbox).
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pardot.png
 tags:
   - Marketing Automation
   - B2B Marketing
@@ -24,49 +36,52 @@ created: '2026-05-11'
 modified: '2026-05-11'
 specificationVersion: '0.19'
 apis:
-  - aid: pardot:account-engagement-api-v5
-    name: Account Engagement API v5
-    description: >-
-      Version 5 REST API for managing prospects, accounts, campaigns, emails,
-      forms, lists, and engagement programs in Marketing Cloud Account
-      Engagement. Authentication uses Salesforce OAuth 2.0 with the
-      pardot_api scope and the Pardot-Business-Unit-Id header.
-    humanURL: >-
-      https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
-    baseURL: https://pi.pardot.com/api/v5
-    tags:
-      - Marketing Automation
-      - Prospects
-      - Campaigns
-      - Email Marketing
-    properties:
-      - type: Documentation
-        url: >-
-          https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
-      - type: Authentication
-        url: >-
-          https://developer.salesforce.com/docs/marketing/pardot/guide/authentication.html
-      - type: GettingStarted
-        url: >-
-          https://developer.salesforce.com/docs/marketing/pardot/guide/getting-started.html
-  - aid: pardot:account-engagement-api-v4
-    name: Account Engagement API v3/v4 (Legacy)
-    description: >-
-      Legacy v3/v4 REST API endpoints for Pardot resources. Still supported
-      for many objects not yet migrated to v5; uses the same Salesforce
-      OAuth 2.0 authentication scheme.
-    humanURL: >-
-      https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
-    baseURL: https://pi.pardot.com/api
-    tags:
-      - Marketing Automation
-      - Legacy API
-      - Prospects
-    properties:
-      - type: Documentation
-        url: >-
-          https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
-
+- aid: pardot:account-engagement-api-v5
+  name: Account Engagement API v5
+  description: >-
+    Version 5 REST API for managing prospects, accounts, campaigns, emails, forms, lists, and engagement
+    programs in Marketing Cloud Account Engagement. Authentication uses Salesforce OAuth 2.0 with the
+    pardot_api scope and the Pardot-Business-Unit-Id header.
+  humanURL: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+  baseURL: https://pi.pardot.com/api/v5
+  tags:
+  - Marketing Automation
+  - Prospects
+  - Campaigns
+  - Email Marketing
+  properties:
+  - type: Documentation
+    url: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+  - type: Authentication
+    url: https://developer.salesforce.com/docs/marketing/pardot/guide/authentication.html
+  - type: GettingStarted
+    url: https://developer.salesforce.com/docs/marketing/pardot/guide/getting-started.html
+- aid: pardot:account-engagement-api-v4
+  name: Account Engagement API v3/v4 (Legacy)
+  description: >-
+    Legacy v3/v4 REST API endpoints for Pardot resources. Still supported for many objects not yet migrated
+    to v5; uses the same Salesforce OAuth 2.0 authentication scheme.
+  humanURL: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
+  baseURL: https://pi.pardot.com/api
+  tags:
+  - Marketing Automation
+  - Legacy API
+  - Prospects
+  properties:
+  - type: Documentation
+    url: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
+- aid: pardot:pardot-objects-api
+  name: Salesforce Marketing Cloud Account Engagement (Pardot) Objects API
+  description: >-
+    The Objects API from Salesforce Marketing Cloud Account Engagement (Pardot) — 24 operation(s) for
+    objects.
+  humanURL: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+  baseURL: https://pi.pardot.com/api/v5
+  tags:
+  - Objects
+  properties:
+  - type: OpenAPI
+    url: openapi/pardot-objects-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/pardot-agentic-access.yml
