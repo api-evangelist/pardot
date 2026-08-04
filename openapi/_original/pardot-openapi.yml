@@ -1,0 +1,365 @@
+openapi: 3.1.0
+info:
+  title: Salesforce Account Engagement (Pardot) API v5
+  description: |
+    Salesforce Account Engagement (Pardot) API v5 exposes prospects,
+    campaigns, lists, opportunities, emails, forms and other marketing
+    automation objects through a uniform `/api/v5/objects/{collection}`
+    pattern. Authentication is delegated to Salesforce OAuth2.
+  version: "5.0.0"
+  contact:
+    name: Salesforce
+    url: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+servers:
+  - url: https://pi.pardot.com/api/v5
+    description: Pardot v5 production
+security:
+  - BearerAuth: []
+paths:
+  /objects/prospects:
+    get:
+      summary: Query prospects
+      parameters:
+        - in: query
+          name: fields
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A collection of prospects.
+    post:
+      summary: Create a prospect
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Prospect created.
+  /objects/prospects/{id}:
+    get:
+      summary: Read a prospect
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: fields
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Prospect details.
+    patch:
+      summary: Update a prospect
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Prospect updated.
+    delete:
+      summary: Delete a prospect
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Prospect deleted.
+  /objects/campaigns:
+    get:
+      summary: Query campaigns
+      parameters:
+        - in: query
+          name: fields
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A collection of campaigns.
+    post:
+      summary: Create a campaign
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Campaign created.
+  /objects/campaigns/{id}:
+    get:
+      summary: Read a campaign
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Campaign details.
+    patch:
+      summary: Update a campaign
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Campaign updated.
+  /objects/lists:
+    get:
+      summary: Query lists
+      responses:
+        '200':
+          description: A collection of lists.
+    post:
+      summary: Create a list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: List created.
+  /objects/lists/{id}:
+    get:
+      summary: Read a list
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List details.
+    patch:
+      summary: Update a list
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: List updated.
+    delete:
+      summary: Delete a list
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: List deleted.
+  /objects/list-memberships:
+    get:
+      summary: Query list memberships
+      responses:
+        '200':
+          description: A collection of list memberships.
+    post:
+      summary: Create a list membership
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: List membership created.
+  /objects/opportunities:
+    get:
+      summary: Query opportunities
+      responses:
+        '200':
+          description: A collection of opportunities.
+  /objects/opportunities/{id}:
+    get:
+      summary: Read an opportunity
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Opportunity details.
+  /objects/emails:
+    get:
+      summary: Query emails
+      responses:
+        '200':
+          description: A collection of emails.
+    post:
+      summary: Create / send an email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Email created.
+  /objects/emails/{id}:
+    get:
+      summary: Read an email
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Email details.
+  /objects/forms:
+    get:
+      summary: Query forms
+      responses:
+        '200':
+          description: A collection of forms.
+  /objects/forms/{id}:
+    get:
+      summary: Read a form
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Form details.
+  /objects/visits:
+    get:
+      summary: Query visits
+      responses:
+        '200':
+          description: A collection of visits.
+  /objects/visitors:
+    get:
+      summary: Query visitors
+      responses:
+        '200':
+          description: A collection of visitors.
+  /objects/custom-fields:
+    get:
+      summary: Query custom fields
+      responses:
+        '200':
+          description: A collection of custom fields.
+    post:
+      summary: Create a custom field
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Custom field created.
+  /objects/custom-redirects:
+    get:
+      summary: Query custom redirects
+      responses:
+        '200':
+          description: A collection of custom redirects.
+  /objects/dynamic-content:
+    get:
+      summary: Query dynamic content
+      responses:
+        '200':
+          description: A collection of dynamic content blocks.
+  /objects/files:
+    get:
+      summary: Query files
+      responses:
+        '200':
+          description: A collection of files.
+  /objects/folders:
+    get:
+      summary: Query folders
+      responses:
+        '200':
+          description: A collection of folders.
+  /objects/tags:
+    get:
+      summary: Query tags
+      responses:
+        '200':
+          description: A collection of tags.
+  /objects/tracker-domains:
+    get:
+      summary: Query tracker domains
+      responses:
+        '200':
+          description: A collection of tracker domains.
+  /objects/users:
+    get:
+      summary: Query users
+      responses:
+        '200':
+          description: A collection of users.
+  /objects/layout-templates:
+    get:
+      summary: Query layout templates
+      responses:
+        '200':
+          description: A collection of layout templates.
+components:
+  securitySchemes:
+    BearerAuth:
+      type: oauth2
+      description: |
+        Authenticate via Salesforce OAuth2 and pass the resulting access
+        token as `Authorization: Bearer {token}`. The `Pardot-Business-Unit-Id`
+        header is also required on every request.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.salesforce.com/services/oauth2/authorize
+          tokenUrl: https://login.salesforce.com/services/oauth2/token
+          scopes:
+            pardot_api: Access the Pardot/Account Engagement API

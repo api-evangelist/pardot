@@ -1,0 +1,14 @@
+{
+  "provider": "pardot",
+  "sources": [
+    "pardot-objects-api-openapi.yml"
+  ],
+  "outputs": [
+    "pardot-objects-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
