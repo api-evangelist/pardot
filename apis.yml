@@ -11,17 +11,24 @@ description: >-
   at pi.pardot.com (production) and pi.demo.pardot.com (sandbox).
 type: Index
 accessModel:
-  pricing: unknown
-  onboarding: self-serve
-  trial: false
+  pricing: paid
+  onboarding: request
+  trial: true
   try_now: false
   public: false
-  label: Self-serve signup
-  confidence: medium
+  label: Sales-assisted, with published list pricing
+  confidence: high
+  note: >-
+    Salesforce publishes list prices for all four Account Engagement editions
+    ($1,250 / $2,750 / $4,400 / $15,000 USD per org per month) but every tier
+    ends in a "Contact us" call to action and all per-month products require an
+    annual contract. There is no self-serve checkout and no free tier; a free
+    trial form is published.
   source:
-  - authentication
-  generated: '2026-07-22'
-  method: derived
+  - plans/pardot-plans-pricing.yml
+  - https://www.salesforce.com/marketing/b2b-automation/pricing/
+  generated: '2026-08-13'
+  method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pardot.png
 tags:
   - Marketing Automation
@@ -33,7 +40,7 @@ tags:
 url: >-
   https://raw.githubusercontent.com/api-evangelist/pardot/refs/heads/main/apis.yml
 created: '2026-05-11'
-modified: '2026-05-11'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
 - aid: pardot:account-engagement-api-v5
@@ -70,6 +77,10 @@ apis:
   properties:
   - type: Documentation
     url: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
+  - type: WADL
+    url: schemas/pardot-v3-wadl.xml
+  - type: XMLSchema
+    url: schemas/pardot-schemas.yml
 - aid: pardot:pardot-objects-api
   name: Salesforce Marketing Cloud Account Engagement (Pardot) Objects API
   description: >-
@@ -82,6 +93,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/pardot-objects-api-openapi.yml
+  - type: Overlay
+    url: overlays/pardot-objects-api-overlay.yaml
 common:
   - type: AgenticAccess
     url: agentic-access/pardot-agentic-access.yml
@@ -101,8 +114,68 @@ common:
     url: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
   - type: Pricing
     url: https://www.salesforce.com/marketing/b2b-automation/pricing/
-  - type: Signup
+  - type: SignUp
     url: https://www.salesforce.com/form/signup/freetrial-b2bma/
+  - type: Security
+    url: security/pardot-vulnerability-disclosure.yml
+  - type: TrustCenter
+    url: security/pardot-trust-center.yml
+  - type: Compliance
+    url: security/pardot-trust-center.yml
+  - type: Conformance
+    url: conformance/pardot-conformance.yml
+  - type: Conventions
+    url: conventions/pardot-conventions.yml
+  - type: ErrorCatalog
+    url: errors/pardot-error-codes.yml
+  - type: Lifecycle
+    url: lifecycle/pardot-lifecycle.yml
+  - type: StatusPage
+    url: https://status.salesforce.com/
+  - type: Deprecation
+    url: https://developer.salesforce.com/docs/marketing/pardot/guide/transitioning-v5.html
+  - type: RateLimits
+    url: rate-limits/pardot-rate-limits.yml
+  - type: Plans
+    url: plans/pardot-plans-pricing.yml
+  - type: DataModel
+    url: data-model/pardot-data-model.yml
+  - type: Packages
+    url: packages/pardot-packages.yml
+  - type: SDKs
+    url: packages/pardot-packages.yml
+  - type: Sandbox
+    url: sandbox/pardot-sandbox.yml
+  - type: Components
+    url: components/pardot-components.yml
+  - type: MCPServer
+    url: mcp/pardot-mcp.yml
+  - type: LLMsTxt
+    url: llms/pardot-llms.txt
+  - type: WellKnown
+    url: well-known/pardot-well-known.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: XMLSchema
+    url: schemas/pardot-schemas.yml
+  - type: Postman
+    url: https://github.com/pardot/postman-pardot-apis
+  - type: DeveloperPortal
+    url: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
+  - type: APIReference
+    url: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+  - type: GettingStarted
+    url: https://developer.salesforce.com/docs/marketing/pardot/guide/getting-started.html
+  - type: Support
+    url: https://help.salesforce.com/s/articleView?id=sf.bundle_pardot_parent.htm&type=5
+  - type: Blog
+    url: https://developer.salesforce.com/blogs/
+  - type: TermsOfService
+    url: https://www.salesforce.com/company/legal/sfdc-website-terms-of-service/
+  - type: PrivacyPolicy
+    url: https://www.salesforce.com/company/privacy/
+  - type: SourceCode
+    url: https://github.com/pardot/api-schemas
 features:
   - name: Lead Scoring and Grading
     description: >-
@@ -131,3 +204,9 @@ features:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 28
+  pass: local-v1
