@@ -1,0 +1,949 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.salesforce.com/docs/marketing/pardot/guide/error-codes.md
+docs: https://developer.salesforce.com/docs/marketing/pardot/guide/error-codes.html
+note: Account Engagement (Pardot) publishes a numeric error-code registry shared across API versions 3,
+  4 and 5. Codes are returned in the response body, not in the HTTP status line; the same numeric code
+  can appear under several 4xx statuses. This is NOT RFC 9457 problem+json.
+format: vendor-json
+rfc9457: false
+envelopes:
+- versions:
+  - v5
+  content_type: application/json
+  shape: '{"code": <error_code>, "message": "<error_message>"}'
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+- versions:
+  - v3
+  - v4
+  content_type: application/xml
+  shape: <rsp stat="fail" version="1.0"><err code="error_code">error_message</err></rsp>
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/error-codes.md
+- versions:
+  - v3
+  - v4
+  content_type: application/json
+  shape: '{"@attributes": {"stat": "fail", "version": <error_code>, "err_code": "<error_message>"}, "err":
+    "<error_message>"}'
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/error-codes.md
+http_statuses:
+- status: 400
+  meaning: Bad Request — missing or invalid required parameters.
+- status: 404
+  meaning: Object with the given ID does not exist or is in the recycle bin.
+- status: 405
+  meaning: Method Not Allowed — insufficient access rights, or a condition prevents the operation (e.g.
+    error code 108).
+notable:
+- code: '66'
+  meaning: Concurrent request limit exceeded (max 5 concurrent API requests).
+- code: '122'
+  meaning: Daily API request allocation exceeded for the business unit.
+- code: '108'
+  meaning: Object could not be deleted because it is used in other places (405).
+error_count: 208
+errors:
+- code: '1'
+  message: Invalid API key or user key
+  problem: Either the user or API keys are incorrect, or the API key has expired.
+  solution: Check the user and API keys in the request. If the user key was entered accurately, then submit
+    a request for a new API key.
+- code: '2'
+  message: Invalid action
+  problem: The requested operation wasn’t recognized by the API.
+  solution: Verify that the requested operation is valid for the target object type. If that operation
+    is allowed, then check for misspellings and other typos.
+- code: '3'
+  message: Invalid prospect ID
+  problem: Account Engagement couldn’t find a match for the provided prospect ID.
+  solution: Verify that the prospect ID is accurate.
+- code: '4'
+  message: Invalid prospect email address
+  problem: Account Engagement couldn’t find a prospect with the provided email address (for read, update,
+    or delete), or the prospect email address is too long (> 255 characters) or has invalid syntax (for
+    create/upsert). See Allowed Characters in Email Addresses for email address verification.
+  solution: If running create or upsert, verify the email address is valid. If running read, update, or
+    delete, verify that a prospect with this email address exists in your Account Engagement instance.
+- code: '5'
+  message: Invalid query parameters
+  problem: Account Engagement didn’t recognize any of the provided search parameters.
+  solution: Check parameter spellings. Also, ensure that the specified search parameter is supported by
+    the API. See Parameters to Select Prospects for more details.
+- code: '6'
+  message: Invalid time frame
+  problem: The value of the `timeframe` search parameter wasn’t recognized.
+  solution: Check for misspellings in the `timeframe` value. Also, verify that the provided value is supported
+    by the API. See Parameters to Select Prospects for more for supported `timeframe` values.
+- code: '7'
+  message: Invalid timestamp
+  problem: Account Engagement couldn’t decipher a specified timestamp.
+  solution: Verify that the timestamp adheres to GNU standards for date and time input. See GNU Date Input
+    Format & Syntax for more information. Also, ensure all characters in the timestamp are URL safe. See
+    Parameters to Select Prospects for supported values.
+- code: '8'
+  message: Invalid time range
+  problem: The provided start timestamp is later than the end timestamp.
+  solution: Swap the values of the timestamps.
+- code: '9'
+  message: A prospect with the specified email address already exists
+  problem: The provided email address is already assigned to a prospect within Account Engagement. This
+    error can occur when a `create` request with the same email address is submitted more than one time.
+  solution: Check the existing prospect record to see if data can be merged through an `update` request.
+- code: '10'
+  message: Invalid user ID
+  problem: The provided user ID doesn’t exist in Account Engagement.
+  solution: Verify that the user ID was typed correctly and matches the intended user in Account Engagement.
+- code: '11'
+  message: Invalid user email address
+  problem: The provided user email address couldn’t be found in Account Engagement.
+  solution: Verify that the provided email address belongs to a registered Account Engagement user and
+    that it was typed correctly.
+- code: '12'
+  message: Invalid group ID
+  problem: The provided group ID doesn’t exist in Account Engagement.
+  solution: Verify that the group ID was typed correctly and matches the intended group in Account Engagement.
+- code: '13'
+  message: One or more required parameters are missing
+  problem: One or more of the required parameters for this type of request are missing.
+  solution: Verify that all of the required parameters have been provided. Check that all parameter names
+    were spelled accurately and as specified in Object Field References. Ensure the proper URL punctuation
+    was used, including `?` before parameters and `&` between parameters.
+- code: '14'
+  message: Non-existent prospect ID; No email address provided
+  problem: The ID provided for the `upsert` wasn’t valid, and no email address was provided for a new
+    prospect to be created.
+  solution: Verify the provided ID. If creating a prospect was intended, ensure that an email address
+    was provided.
+- code: '15'
+  message: Login failed
+  problem: The provided email address, password, or user key is invalid.
+  solution: Check the provided credentials for typos. Also, ensure that the specified user account has
+    at least "Marketing" access privileges.
+- code: '16'
+  message: Invalid ID
+  problem: The provided ID isn’t valid.
+  solution: Ensure that only valid integer values were provided.
+- code: '17'
+  message: Invalid ID range
+  problem: The provided ID range isn’t valid.
+  solution: Swap the values of the specified IDs.
+- code: '18'
+  message: Invalid value for profile criteria matching status
+  problem: The provided value for a profile criteria's matching status wasn’t recognized.
+  solution: Ensure that only the values `match`, `nomatch`, or `unknown` are being used.
+- code: '19'
+  message: Invalid value specified for sort_by
+  problem: The provided value for the `sort_by` isn’t a supported sorting order.
+  solution: 'Check that the specified sorting values are listed in Using (Object Type): Supported Sorting
+    Options section for the target object.'
+- code: '20'
+  message: Invalid value specified for sort_order
+  problem: The provided value for the `sort_order` isn’t a supported sorting order.
+  solution: Ensure that only the values `ascending` or `descending` are being used.
+- code: '21'
+  message: Invalid value specified for offset
+  problem: The provided value for `offset` couldn’t be interpreted as an integer.
+  solution: Check for typos that can prevent the value from being interpreted.
+- code: '22'
+  message: Unsupported feature in this version of the API
+  problem: The feature requested by the API call isn’t implemented in this version of the API.
+  solution: Update the request to use the necessary API version.
+- code: '23'
+  message: Invalid value specified for limit
+  problem: The provided value for `limit` is invalid.
+  solution: Ensure that the provided value is an integer and is no larger than 200.
+- code: '24'
+  message: Invalid visitor ID
+  problem: The provided visitor ID doesn’t exist in Account Engagement.
+  solution: Verify that the visitor ID was typed correctly and matches the intended visitor in Account
+    Engagement.
+- code: '25'
+  message: Parameter is_starred must be true or false
+  problem: The value specified for `is_starred` couldn’t be interpreted as a boolean.
+  solution: Verify that only the values `true` or `false` were specified.
+- code: '26'
+  message: Parameter assigned must be true or false
+  problem: The value specified for `assigned` couldn’t be interpreted as a boolean.
+  solution: Verify that only the values `true` or `false` were specified.
+- code: '27'
+  message: Parameter deleted must be true or false
+- code: '28'
+  message: Parameter new must be true or false
+- code: '29'
+  message: Invalid value specified for score
+  problem: The value specified for `score` couldn’t be interpreted as an integer.
+  solution: Check for typos that can prevent the value from being interpreted correctly.
+- code: '30'
+  message: Invalid score range specified
+  problem: The provided score range isn’t valid.
+  solution: Swap the values of the specified scores.
+- code: '31'
+  message: Invalid combination of parameters for score
+  problem: A conflicting set of query criteria for the prospect's score has been specified.
+  solution: Make sure that `score_equal_to` isn’t being used in combination with `score_greater_than`
+    or `score_less_than`.
+- code: '32'
+  message: Invalid value specified for grade
+  problem: The value specified for `grade` isn’t one of the allowed options.
+  solution: Check for typos that may prevent `grade` from being interpreted correctly. SeeParameters to
+    Select Prospects for supported values. Also, ensure that the specified grades are URL-encoded.
+- code: '33'
+  message: Invalid grade range specified
+  problem: The provided grade range isn’t valid.
+  solution: Swap the values of the specified grades.
+- code: '34'
+  message: Invalid combination of parameters for grade
+  problem: A conflicting set of query criteria for the grade has been specified.
+  solution: Make sure that `grade_equal_to` isn’t being used in combination with `grade_greater_than`
+    or `grade_less_than`.
+- code: '35'
+  message: Invalid opportunity ID
+  problem: Account Engagement couldn’t find a match for the provided opportunity ID.
+  solution: Verify that the opportunity ID is accurate.
+- code: '36'
+  message: One or more required parameter values are missing
+  problem: Some of the parameters necessary to complete the specified API request were omitted from the
+    request.
+  solution: Ensure that all required parameters have been included. In addition, check from typos in the
+    parameter names. Also check that the request has been properly formatted.
+- code: '37'
+  message: A Salesforce connector was detected
+  problem: Your Account Engagement instance has a Salesforce connector. When a Salesforce connector is
+    present, opportunities and prospect account cannot be modified by Account Engagement.
+  solution: '***(NOT RECOMMENDED)*** Deleting the Salesforce connector allows for opportunity modification
+    to be done through the API. However, doing so disables synchronization with Salesforce. If a Salesforce
+    connector is present, modifications to opportunities must be done within Salesforce.'
+- code: '38'
+  message: Invalid campaign ID
+  problem: Account Engagement couldn’t find a match for the provided campaign ID.
+  solution: Verify that the campaign ID is accurate.
+- code: '39'
+  message: Invalid profile ID
+  problem: Account Engagement couldn’t find a match for the provided profile ID.
+  solution: Verify that the profile ID is accurate.
+- code: '40'
+  message: Invalid opportunity probability
+  problem: The value specified for `probability` isn’t valid.
+  solution: Ensure that the specified value is a number from 0 through 100 inclusive.
+- code: '41'
+  message: Invalid probability range specified
+  problem: The specified probability range isn’t valid.
+  solution: Ensure that the specified values are numbers from 0 through 100, inclusive. It might be necessary
+    to swap the values of the specified probabilities.
+- code: '42'
+  message: Invalid opportunity value
+  problem: The value specified for `value` is not valid.
+  solution: Ensure that the specified value is a non-negative number.
+- code: '43'
+  message: Invalid opportunity value range specified
+  problem: The specified value range is not valid.
+  solution: Ensure that the specified values are non-negative numbers. It might be necessary to swap the
+    specified values.
+- code: '44'
+  message: The provided prospect_id and prospect_email parameters do not match
+  problem: The specified `prospect_email` and `prospect_id` parameters do not correspond to the same prospect.
+  solution: 'Ensure that the specified email address and the ID both correspond to the desired prospect.
+    Note: Typically, only one of these parameters is required. Consider omitting one of them.'
+- code: '45'
+  message: The provided user_id and user_email parameters do not match
+  problem: The specified `user_id` and `user_email` parameters do not correspond to the same user.
+  solution: 'Ensure that the specified email address and the ID both correspond to the desired user. (Note:
+    Typically, only one of these parameters is required. Consider omitting one of them.)'
+- code: '46'
+  message: This API user lacks sufficient permissions for the requested operation
+  problem: The currently authenticated API user doesn't have the necessary permissions to perform the
+    requested operation.
+  solution: Some API operations are only available to users with Administrative permissions. If the requested
+    operation has such a requirement, reauthenticate as an administrative user and resubmit the request.
+    See the Authentication section for more information.
+- code: '47'
+  message: Multiple assignment targets were specified
+  problem: More than one object was specified as a target for this `ASSIGN` request. For example, both
+    a group and user were specified as targets of a prospect assignment.
+  solution: Ensure that only one target is specified when submitting an `ASSIGN` request.
+- code: '48'
+  message: Invalid visit ID
+  problem: The provided visit ID does not exist in Account Engagement.
+  solution: Verify that the visit ID was typed correctly and matches the intended visit in Account Engagement.
+- code: '49'
+  message: Access Denied
+  problem: User is not authorized to perform the requested operation either due to access restrictions
+    or forbidden method of passing credentials
+  solution: Verify user has required access to perform the requested operation. Ensure that credentials
+    are passed via a supported method as per the API documentation. Contact customer support if problem
+    persists.
+- code: '50'
+  message: Invalid boolean
+  problem: Need a valid boolean value, like true.
+  solution: Make sure to use lowercase.
+- code: '51'
+  message: Invalid parameter
+  problem: Object type is invalid.
+  solution: Change the object type to one of the allowed types.
+- code: '52'
+  message: Invalid parameter range
+  problem: A parameter in the request is outside its acceptable range.
+  solution: Update the parameter to be within the acceptable range.
+- code: '53'
+  message: Client IP address/location must be activated before accessing API
+  problem: IP is not in the allowed list.
+  solution: Add the IP address to the allowed list to access the API.
+- code: '54'
+  message: Email address is already in use
+  problem: Email address is already being used by other prospect.
+  solution: Use different email address.
+- code: '55'
+  message: Invalid list ID
+  problem: You either did not specify the list ID, or that List ID doesn't exist.
+  solution: Specify an ID, or check to make sure using the correct ID.
+- code: '56'
+  message: Invalid number entered for field
+  problem: The value entered doesn't match the field's type of Number.
+  solution: Verify that there are no characters in the value.
+- code: '57'
+  message: Invalid date entered for field
+  problem: The value entered doesn't match the field's type of Date, it is an invalid format.
+  solution: Verify that the timestamp adheres to GNU standards for date and time input. See GNU Date Input
+    Format & Syntax for more information. Also, ensure all characters in the timestamp are URL safe. See
+    Supported Search Criteria in Prospects for supported values.
+- code: '58'
+  message: That prospect is already a member of that list. Update the membership instead.
+  problem: The prospect is a member of the list already.
+  solution: Update the membership.
+- code: '59'
+  message: A CRM connector was detected
+  problem: Your Account Engagement business unit has a CRM connector. When a CRM connector is present,
+    opportunities and prospect account cannot be modified by Account Engagement.
+  solution: '***(NOT RECOMMENDED)*** Deleting the CRM connector allows for opportunity modification to
+    be done through the API. However, doing so disables synchronization with your CRM. If a CRM connector
+    is present, modifications to opportunities must be done within your CRM.'
+- code: '60'
+  message: Invalid HTTP request method
+  problem: The endpoint does not support the HTTP method of the request.
+  solution: Use the proper HTTP method for the endpoint. Reference object endpoint documentation or Version
+    5 Overview.
+- code: '61'
+  message: Invalid prospect account id
+  problem: Prospect Account ID was incorrect or doesn't exist.
+  solution: Verify that the prospect account ID was typed correctly and matches the intended Prospect
+    Account in Account Engagement.
+- code: '62'
+  message: Conflicting Update
+  problem: Another update is occurring at the same time.
+  solution: Wait before performing this action.
+- code: '63'
+  message: Too many IDs specified
+  problem: There is a limit on how many IDs you can specify for this query.
+  solution: Lower the number of IDs you are querying for.
+- code: '64'
+  message: Email content missing required variables
+  problem: The content of the email is missing required variables.
+  solution: Ensure that all required variables, such as unsubscribe link, are present.
+- code: '65'
+  message: Invalid email format
+  problem: Doesn't have all required fields present or are not in proper format, such as from address.
+  solution: Ensure all fields are present, populated, and in proper format.
+- code: '66'
+  message: You have exceeded your concurrent request limit. Please wait, before trying again
+  problem: Have made too many requests in this time period.
+  solution: Wait a little before making more requests.
+- code: '67'
+  message: You have reached or exceeded the limit of how many of this type of object you may have.
+  problem: You have too many of the specified object type to create more.
+  solution: Delete some of the object if you must make more.
+- code: '68'
+  message: Template with this id does not exist.
+  problem: The template you are trying to access does not exist.
+  solution: Make sure you are using the correct template ID or create a one to use.
+- code: '70'
+  message: Batch processing is limited to 50 prospects at once.
+  problem: You are requesting to batch more prospects in an operation than we allow.
+  solution: Ensure that your batch request has 50 or fewer prospects.
+- code: '71'
+  message: Input needs to be valid JSON or XML
+  problem: You've inputted invalid JSON or XML.
+  solution: Ensure that your request is properly formatted.
+- code: '72'
+  message: JSON has been corrupted, hash does not match
+  problem: The encoded JSON has been corrupted at some point.
+  solution: Ensure that you are sending the correct information.
+- code: '73'
+  message: Currently there is not an Email Plug-in Campaign associated to successfully track this email.
+    Please contact your Account Engagement administrator to ensure there is a proper campaign associated
+    with the Account Settings in Account Engagement.
+  problem: Currently there is not an Email Plug-in Campaign associated to successfully track this email.
+  solution: Contact your Account Engagement administrator to ensure there is a proper campaign associated
+    with the Account Settings in Account Engagement.
+- code: '74'
+  message: The email client is not supported by the plugin API
+  problem: The email client used is not supported by this API.
+  solution: Use an appropriate email client.
+- code: '75'
+  message: There was an error processing the request for the account variable tags
+  problem: There was an error processing the request for the account variable tags.
+  solution: Review the variable tags, and resubmit the request.
+- code: '76'
+  message: API access was disabled
+  problem: API access for your account has been disabled.
+  solution: Contact customer support.
+- code: '77'
+  message: Invalid prospect fid
+  problem: The provided Prospect FID was invalid.
+  solution: Provide a valid Prospect FID.
+- code: '79'
+  message: Invalid CRM_FID
+  problem: The CRM FID provided is invalid.
+  solution: Provide a valid CRM FID that can be accessed by your account, or is already attached to a
+    prospect.
+- code: '80'
+  message: Invalid CRM_TYPE
+  problem: The CRM type provided or used is invalid.
+  solution: Specify a correct CRM type.
+- code: '81'
+  message: Prospect ID and FID do not match
+  problem: The provided Prospect ID and FID don’t match a single prospect.
+  solution: Provide a prospect ID and FID that match a single prospect.
+- code: '83'
+  message: No valid CRM connectors available
+  problem: Your account doesn’t have an available CRM connector.
+  solution: Add a CRM connector to your account.
+- code: '84'
+- code: '85'
+  message: Unable to save the prospect
+  problem: For some reason, the prospect wasn’t saved.
+  solution: Resubmit the request or review the original request for errors.
+- code: '86'
+  message: Invalid Template id
+  problem: The template ID provided doesn’t correspond to a template.
+  solution: Provide a template ID that’s valid.
+- code: '88'
+  message: Your account must use version 4 of the API.
+  problem: You have requested version 3 of the API, but your account must use version 4.
+  solution: Make the request using `/version/4` in place of `/version/3`.
+- code: '89'
+  message: Your account is unable to use version 4 of the API.
+  problem: You have requested version 4 of the API, but your account must use version 3.
+  solution: Make the request using `/version/3` in place of `/version/4`.
+- code: '90'
+  message: Prospect array should be a flat array of attributes
+  problem: The prospect array given wasn’t a flat array, and it should have been.
+  solution: Resubmit the request with a flat array. See the Prospect Batch sections of the Prospect object
+    documentation for examples.
+- code: '91'
+  message: Prospect array must be keyed by email address
+  problem: The prospect array given wasn’t keyed by email addresses, but should have been.
+  solution: Resubmit the request with an array keyed by email addresses. See the Prospect Batch sections
+    of the Prospect object documentation for examples.
+- code: '92'
+  message: Prospect record could not be found
+  problem: The prospect record wasn’t found with the provided information.
+  solution: Resubmit the request with different parameters.
+- code: '93'
+  message: The selected template is missing send options
+  problem: Send options are required for the template.
+  solution: Resubmit the request with send options.
+- code: '94'
+  message: The provided version is not a valid number
+  problem: The version number used isn’t valid.
+  solution: Resubmit the request with a valid version number.
+- code: '95'
+  message: Folder name is invalid
+  problem: The name for the folder isn’t valid.
+  solution: Resubmit the request with a valid folder name.
+- code: '96'
+  message: User does not have access to this folder
+  problem: The role assigned for this user doesn’t have access to this folder.
+  solution: Update the users permissions and resubmit the request.
+- code: '97'
+  message: The folder ID provided does not exist
+  problem: No folder was found for the ID provided.
+  solution: Resubmit the request with a different folder ID.
+- code: '98'
+  message: Prospect not mailable
+  problem: One or more of the recipient prospects can’t receive the email requested (due to opting out,
+    being flagged as "Do Not Email", or for other reasons)
+  solution: Check that the recipient list is correct, and that the prospect's email preferences are up
+    to date.
+- code: '99'
+  message: User with the provided email already exists
+  problem: A user with the email provided is already in the system.
+  solution: Resubmit the request with a different email address.
+- code: '100'
+  message: The provided time zone is invalid
+  problem: The value provided does not match a valid time zone.
+  solution: Resubmit the request with a different time zone.
+- code: '101'
+  message: The provided role is invalid
+  problem: The value provided for role isn’t valid.
+  solution: Resubmit the request with a different role.
+- code: '102'
+  message: The CRM Username specified is currently applied to another user
+  problem: This CRM username is already in use and cannot be used for another user.
+  solution: Resubmit the request with a different CRM username to apply for the user.
+- code: '103'
+  message: A CRM connector was not detected
+  problem: A CRM connector was not found.
+  solution: Make sure to configure a valid CRM connector and try again.
+- code: '104'
+  message: The CRM Username specified was not detected
+  problem: The CRM username wasn’t found.
+  solution: Verify the CRM username provided is correct and try again.
+- code: '105'
+  message: There is no activation hash for the specified user
+  problem: The activation hash for the provided user wasn’t found.
+- code: '106'
+  message: User is already active
+  problem: The user is already activate.
+- code: '107'
+  message: Password does not meet requirements
+  problem: The submitted password doesn’t meet the password requirements.
+  solution: Resubmit the request using a password that meets the requirements.
+- code: '108'
+  message: This Asset cannot be deleted because it’s being used in other places.
+  problem: Unable to delete an asset if it’s used in other places.
+  solution: Remove all dependencies of this asset and try again.
+- code: '109'
+  message: The requested record was not found.
+  problem: Unable to find the requested resource.
+  solution: Verify the parameters are correct and resubmit the request.
+- code: '110'
+  message: Invalid Account Id
+  problem: Invalid account id submitted.
+  solution: Verify the account id is correct and resubmit the request.
+- code: '111'
+  message: The Integration Username specified is currently applied to another Account
+  problem: Unable to use the submitted username as it is already used.
+  solution: Resubmit the request using a different integration username.
+- code: '112'
+  message: Missing recipient to Track With Engage.
+  problem: The recipient parameter is missing.
+  solution: Resubmit the request with a valid recipient.
+- code: '113'
+  message: Missing CRM ID or Email Address of recipient.
+  problem: The request is missing required information.
+  solution: Resubmit the request with a valid CRM ID or email address.
+- code: '114'
+  message: Invalid CRM ID or Email Address of recipient.
+  problem: The CRM ID or email address is invalid.
+  solution: Resubmit the request with a valid CRM ID or email address.
+- code: '115'
+  message: Number of recipients is more than threshold.
+  problem: The number of recipients provided is too large.
+  solution: Resubmit the request with fewer recipients.
+- code: '116'
+  message: Request outdated.
+  problem: The request time has expired.
+  solution: Resubmit the request.
+- code: '117'
+  message: There was an error deleting the micro campaign.
+  problem: There was an error deleting the micro campaign.
+- code: '118'
+  message: This API can only be called in a test environment.
+  problem: This endpoint can only be called in a test environment.
+- code: '119'
+  message: Unable to create refresh tokens for Salesforce connector
+  problem: Unable to create a refresh token for the Salesforce connector for authentication.
+  solution: Resubmit the request to try again. If the problem persists, contact support.
+- code: '120'
+  message: Unable to verify Salesforce connector
+  problem: Unable to verify the Salesforce connector.
+  solution: Resubmit the request to try again. If the problem persists, contact support.
+- code: '121'
+  message: Unable to sync Prospect with Salesforce
+  problem: Unable to sync prospects with Salesforce.
+  solution: Resubmit the request to try again. If the problem persists, contact support.
+- code: '122'
+  message: Daily API rate limit met
+  problem: The daily allowed API requests have been met.
+  solution: Wait until the next calendar day for the daily limit to reset and try again.
+- code: '123'
+  message: Unable to verify Salesforce username; User may already have a verified Salesforce username.
+  problem: Unable to verify Salesforce username.
+  solution: Verify if the username has already been verified in the system.
+- code: '124'
+  message: Unable to set Salesforce username or id
+  problem: Unable to set the Salesforce username or id.
+  solution: Verify the Salesforce username or ID is correct and resubmit the request.
+- code: '125'
+  message: Cannot accept both user_id and crm_owner_fid.
+  problem: This request only accepts a user_id or crm_owner_fid but not both.
+  solution: Resubmit the request passing only a user_id or crm_owner_fid.
+- code: '126'
+  message: Invalid authentication mechanism
+  problem: This authentication method has been deprecated.
+  solution: Resubmit the request using a valid authentication method.
+- code: '128'
+  message: Cannot create campaigns
+  problem: Campaigns cannot be created for an account that has Connected Campaigns enabled.
+  solution: Create a campaign in Salesforce.
+- code: '129'
+  message: Cannot modify campaign name or cost
+  problem: Campaign name and cost can't be modified via the API.
+  solution: Remove the name and cost fields from the request.
+- code: '130'
+  message: One or more of the specified fields are invalid
+  problem: One or more of the fields in the CSV is not a recognized standard or custom field.
+  solution: Ensure all of the column headers in the CSV match the headers in the field reference. Ensure
+    the number of columns in the CSV matches the number of columns in the header row.
+- code: '131'
+  message: Your account is locked due to too many failed login attempts. Reset your password at <https://pi.pardot.com/user/passwordReset>
+  problem: Too many invalid api requests have been made.
+  solution: Reset your password at <https://pi.pardot.com/user/passwordReset>
+- code: '132'
+  message: Prospect is archived
+  problem: The prospect is in the recycle bin and can't be read.
+  solution: Undelete the prospect via the UI or choose another prospect.
+- code: '133'
+  message: Up to 2 sort by options are allowed.
+  problem: Too many columns were passed into the sort parameter.
+  solution: Use 2 or fewer sort by columns.
+- code: '134'
+  message: Up to 2 sort order options are allowed.
+  problem: Too many orders were passed into the sort parameter.
+  solution: Use 2 or fewer sort orders.
+- code: '135'
+  message: When passing a comma-separated value, one of the two values must be id.
+  problem: When sorting by multiple columns, one column must be the ID column.
+  solution: Add the ID column to the request.
+- code: '137'
+  message: URL is not valid. Please include a protocol (e.g., http\:// or https\:// )
+  problem: An invalid URL was supplied in the request.
+  solution: Add one of the requested protocols to the request.
+- code: '138'
+  message: The supplied name contains too many characters.
+  problem: The name supplied was too long.
+  solution: Reduce the length of the name field.
+- code: '139'
+  message: The supplied name is not valid.
+  problem: The name field has an invalid character.
+  solution: Remove special characters from the name field.
+- code: '145'
+  message: Invalid archived parameter specified. Allowed values are true or false.
+  problem: The archived parameter only accepts boolean values.
+  solution: Update the request to send the proper boolean value.
+- code: '146'
+  message: Invalid archived parameter specified. Allowed values are true or false.
+  problem: The archived parameter only accepts boolean values.
+  solution: Update the request to send the proper boolean value.
+- code: '150'
+  message: Input needs to be valid JSON
+  problem: The JSON that was submitted was invalid.
+  solution: Submit valid JSON. A JSON linter may help ensure that the payload is valid before sending.
+- code: '151'
+  message: Unsupported content-type
+  problem: The 'Content-Type' header has an unsupported value for this endpoint.
+  solution: Check the documentation for the specific endpoint and ensure you are sending the correct Content
+    Type value.
+- code: '152'
+  message: Request body can't be empty
+  problem: The API request has no body.
+  solution: Ensure that the payload of the request is being sent and is encoded as 'application/json'
+- code: '153'
+  message: Missing required property in request
+  problem: A required field in the request body could not be found.
+  solution: Check the documentation and ensure that all required fields in the request body are specified.
+- code: '154'
+  message: Invalid property in request
+  problem: A field in the request body has an invalid value.
+  solution: Check the documentation and ensure that the value that is being passed is supported. Several
+    values are not supported at this time.
+- code: '155'
+  message: Can't update. Import must be in "Open" state.
+  problem: The import that is trying to be updated is not in the “Open” state.
+  solution: This import is no longer eligible to receive updates. Create an import, or update an existing
+    import in the “Open” state.
+- code: '156'
+  message: Can't start processing. Import has no associated data.
+  problem: The import that is trying to be set to “Ready” has no data associated with it.
+  solution: Upload a batch of data before setting the import to “Ready”.
+- code: '157'
+  message: Error processing import request. Please contact your Account Engagement support representative
+  problem: The import has no background processing agent associated with it.
+  solution: This import was improperly created and is unsalvageable. Create an import and upload the same
+    batch of data to ensure processing occurs.
+- code: '158'
+  message: Uploading a file was unsuccessful
+  problem: The “files” element of the request body could not be found.
+  solution: Ensure that the CSV being uploaded belongs to a key named “files”.
+- code: '159'
+  message: The file is not in a valid CSV format
+  problem: The CSV file is invalid.
+  solution: Ensure that the CSV file is properly formatted. There must be 1 header row, at least 1 data
+    row, and the number of columns in each row must match the number of columns in the header.
+- code: '160'
+  message: The limit of batches per import has been reached
+  problem: Too many batches have been submitted for this import
+  solution: Create an import to submit this batch, or submit this batch to an import that has batch capacity.
+- code: '161'
+  message: The current state of the import does not allow the operation
+  problem: A batch was submitted to an import that is not “Open”
+  solution: Create an import to submit this batch, or submit this batch to an import that is “Open”. Processing
+    is not affected for the import associated with the failed request.
+- code: '162'
+  message: No file was specified or uploaded
+  problem: No CSV file was submitted
+  solution: Submit a CSV file in the body of the request under the “files” key.
+- code: '163'
+  message: Too many files were specified or uploaded
+  problem: 'Problem: More than 1 file was submitted in a single request'
+  solution: Submit only 1 file per request.
+- code: '164'
+  message: Daily limit of import batches has been reached
+  problem: Too many batches have been submitted over a 24-hour period. The account limit has been reached.
+  solution: Wait and try again later.
+- code: '165'
+  message: column options is invalid
+  problem: API input was incorrectly formatted.
+  solution: See documentation for correct input formatting.
+- code: '166'
+  message: The input is not in the required format
+  problem: The request input was not specified according to the documentation.
+  solution: Check the documentation for the desired endpoint and ensure the request is formatted properly.
+- code: '174'
+  message: Unknown procedure name.
+  problem: The provided procedure name does not exist.
+  solution: Check procedure name is spelled correctly or try another procedure name.
+- code: '175'
+  message: Unknown procedure argument.
+  problem: An unsupported argument was included in the procedure arguments.
+  solution: Check arguments are spelled correctly or remove unsupported argument.
+- code: '176'
+  message: Missing required argument.
+  problem: The export procedure is missing a requirement argument.
+  solution: Include the required argument in your procedure definition.
+- code: '177'
+  message: Invalid procedure argument.
+  problem: An invalid value has been provided for a procedure argument.
+  solution: Check the values provided for the procedure arguments are correct.
+- code: '178'
+  message: The current state of the export does not allow the operation
+  problem: The operation is not possible because of the state of the export. Possible reasons are that
+    the export is expired or is still running.
+  solution: If the export hasn’t completed, wait until the read endpoint indicates that the export is
+    complete before retrying the operation.
+- code: '180'
+  message: One or more of the specified fields are invalid
+  problem: One or more of the fields included in a create or update operation aren’t valid for that operation.
+  solution: Only include fields that are writable in the operation.
+- code: '181'
+  message: A required header is missing
+  problem: A required HTTP header is missing on the request. For example, if using Salesforce access tokens
+    for authentication, the Pardot-Business-Unit-Id header must be included.
+  solution: Include the required header.
+- code: '182'
+  message: Invalid header value
+  problem: The value included in an HTTP header isn’t valid. It may be formatted incorrectly.
+  solution: Check documentation for the header.
+- code: '183'
+  message: An internal error occurred, please try your request again
+  problem: An internal error occurred.
+  solution: Try the request again. The error may have been related to a temporary condition such as a
+    request failure between internal Account Engagement or Salesforce systems.
+- code: '184'
+  message: access_token is invalid, unknown, or malformed
+  problem: The access token passed in the Authorization header isn’t usable to make API requests to Account
+    Engagement.
+  solution: Make sure the access token is formatted correctly and was obtained using a Connected App that
+    includes the pardot_api OAuth scope. Make sure the user associated with the token is synced to the
+    Account Engagement business unit. Make sure the token used is within its expiration time.
+- code: '188'
+  message: Provided import origin is invalid
+  problem: The import origin specified isn’t valid.
+  solution: Use "ui", "api", or "all" for the import origin.
+- code: '190'
+  message: Email sending is blocked for this account.
+  problem: The account has email sending blocked, and an email is being sent.
+  solution: Contact support.
+- code: '192'
+  message: Object specified does not exist
+  problem: The object ID specified in the API request doesn’t correspond to an object that exists. The
+    object may have been deleted or the object ID passed in may never have been valid.
+  solution: Pass in a valid ID for an object that is not deleted or change the request to request a deleted
+    object (one that is in the Account Engagement recycle bin). Use the deleted=true parameter in v5.
+- code: '193'
+- code: '194'
+  message: Invalid MIME type.
+  problem: The uploaded file isn’t of an allowed type.
+  solution: Upload a file of an allowed type. Make sure the extension of the file is appropriate for its
+    type.
+- code: '197'
+  message: Import missing required field
+  problem: A required field is missing from your import.
+  solution: Include all required field in your import.
+- code: '198'
+  message: Endpoint not found
+  problem: We couldn't find that endpoint ID. Try again.
+  solution: Include a valid endpoint.
+- code: '199'
+  message: Authentication using an api_key is no longer supported. Use Salesforce OAuth access token instead.
+    See <https://developer.pardot.com/kb/authentication/> for details.
+  problem: The Account Engagement API doesn't support api_key based authentication.
+  solution: Salesforce OAuth endpoints should be used to retrieve an access token. See Authentication
+    for details
+- code: '201'
+  message: Business Unit specified in Pardot-Business-Unit-Id header not found or inactive.
+  problem: The Business Unit ID is invalid or the business unit isn't active. This error is also returned
+    when you use the wrong hostname (pi.pardot.com or pi.demo.pardot.com).
+  solution: Make sure that you're using a valid Business Unit ID for an active business unit, and that
+    your URL contains the correct hostname.
+- code: '202'
+  message: Minute rate limit met
+  problem: The requested query execution timed out.
+  solution: Retry the query with a smaller window or try again later.
+- code: '203'
+  message: An admin user for the account not found. Ensure a user with the default admin role exists.
+  problem: There are no users with the default admin role.
+  solution: Make sure there is at least 1 user with the default admin role in Account Engagement.
+- code: '204'
+  message: File size exceeds the max post size or the body message can't be empty
+  problem: The file attached is larger than 50MB or has 0 bytes.
+  solution: Make sure the content of the file doesn’t exceed 50MB
+- code: '205'
+  message: Action name is either missing or incorrect
+  problem: The requested object doesn't support the requested record action.
+  solution: Check spelling and verify that the record action is available for the requested object.
+- code: '206'
+  message: Invalid action argument value
+  problem: The supplied value for the argument isn’t of the required data type.
+  solution: Make sure that the arguments are of the required data type according to the documentation.
+    Strings must be enclosed by double quotes (").
+- code: '207'
+  message: Missing required action argument
+  problem: One or more of the required arguments are missing.
+  solution: Make sure that you provide all of the required arguments for the requested record action.
+- code: '208'
+  message: Unknown action argument
+  problem: The supplied arguments to the record action are misspelled or invalid.
+  solution: Make sure that the arguments are spelled correctly and that they correspond to the arguments
+    supported by the record action, according to the documentation.
+- code: '209'
+  message: 'Too many fields have filters: The max number of 3 distinct fields with filters was exceeded
+    for this query.'
+  problem: Too many fields in the request have filters. You can add filters to up to 3 fields.
+  solution: Decrease the number of fields with filters in the request.
+- code: '210'
+  message: Page token has expired.
+  problem: The page token is expired. Tokens are valid for 4 hours.
+  solution: Make sure you aren't using a page token that was issued more than 4 hours ago.
+- code: '211'
+  message: Page token is invalid.
+  problem: The token is null or invalid.
+  solution: Make sure the page token sent corresponds to the one provided by the last call's response.
+- code: '214'
+  message: API request timed out.
+  problem: The request timed out.
+  solution: Retry the query with smaller limits, offsets, or filter ranges.
+- code: '215'
+  message: Email form field is required.
+  problem: Email form field is required.
+  solution: Include an email form field.
+- code: '216'
+  message: Destination folder is full.
+  problem: The target folder for the object is full, and the object can't be created.
+  solution: Choose a different folder, or remove assets from the target folder.
+- code: '217'
+  message: Visitor is invalid.
+  problem: The visitor is invalid because `is_identified` is false or null on the visitor record, or `ipAddress`
+    is null on the visitor record.
+  solution: Check the visitor ID or fix the `is_identified` or `ipAddress` fields on the visitor record.
+- code: '218'
+  message: 'Feature state is invalid: Connected Campaigns is not enabled for this business unit.'
+  problem: Connected Campaigns isn’t enabled for the Account Engagement business unit.
+  solution: Enable Connected Campaigns.
+- code: '219'
+  message: Deleted records can't be updated. Please undelete before updating.
+  problem: The record that was targeted for update is in the recycle bin.
+  solution: Undelete the record and try again.
+- code: '220'
+  message: Invalid Available For selection
+  problem: 'This email template has false set for all of the following fields and at least one needs to
+    be true: isOneToOneEmail, isListEmail, isAutoresponderEmail, isDripEmail.'
+  solution: Ensure at least one of isOneToOneEmail, isListEmail, isAutoresponderEmail or isDripEmail is
+    true.
+- code: '221'
+  message: Can’t delete the default template for Engage.
+  problem: The request attempted to delete the default Salesforce Engage template.
+  solution: Change the default Salesforce Engage template to another template and try again.
+- code: '222'
+  message: Can’t delete the default template for resubscribe emails
+  problem: The request attempted to delete the default resubscribe template.
+  solution: Change the default resubscribe template to another template and try again.
+- code: '223'
+  message: Unable to delete record
+  problem: The email template could not be deleted.
+  solution: Refer to the message in the response for more details.
+- code: '224'
+  message: Invalid fields for request type
+  problem: The request attempted to query non-queryable fields.
+  solution: Remove the invalid fields and try again.
+- code: '226'
+  message: Mismatched CSV headers and column options
+  problem: The CSV import file headers and the column options did not match.
+  solution: Update the column options to match the headers of the CSV import file and try again.
+- code: '227'
+  message: Mismatched CSV headers and field options
+  problem: The CSV import file headers and the field options did not match.
+  solution: Update the field options to match the headers of the CSV import file and try again.
+- code: '228'
+  message: The api call doesn't support mixed api versions
+  problem: The import was created with a different api version than was used with this request.
+  solution: Retrieve status updates for this import using the same api version it was created with.
+- code: '231'
+  message: Maximum file size has to be at least 10,000,000 bytes
+  problem: The maximum file size was set too low.
+  solution: Increase the maximum file size to be >= 10,000,000 bytes.
+- code: '232'
+  message: Maximum file size cannot exceed 200 MB
+  problem: The maximum file size cannot exceed your business unit's maximum file size. (Default 200 MB)
+  solution: See the error details for your business unit's maximum file size and set maximum file size
+    to below the limit.
+- code: '233'
+  message: There is not a verified Salesforce connector
+  problem: There is not a verified Salesforce connector.
+  solution: Check your Salesforce connector and ensure it is verified and try again.
+- code: '234'
+  message: A v2 Salesforce connector is required for this action
+  problem: A v2 Salesforce connector is required for this action.
+  solution: Update the Salesforce connector to v2 and try again.
+- code: '235'
+  message: The Salesforce connector is already in the desired state
+  problem: The Salesforce connector is already in the requested state.
+  solution: The request is redundant so do not repeat it.
+- code: '236'
+  message: Select a list that is valid for this business unit
+  problem: The selected email list does not exist.
+  solution: Select a valid email list and try again.
+- code: '237'
+  message: Incorrect tag replacement language detected
+  problem: The tag replacement language was incorrect.
+  solution: Select a valid tag replacement language and try again.
+- code: '239'
+  message: File has been altered after initial download.
+  problem: The Engagement Studio export file was altered and cannot be used to recreate the Engagement
+    Studio program.
+  solution: Export the Engagement Studio program and try again with the new file.
+- code: '242'
+  message: One or more requested records not found
+  problem: There were invalid tag ids present in the request.
+  solution: Remove the invalid tag ids and try again.
+- code: '243'
+  message: The sender address uses a domain that doesn’t exist or isn’t verified in your business unit.
+    To send this email, add and verify the sending domain.
+  problem: The email address of the sender uses a domain that needs to be set up and/or verified in your
+    business unit.
+  solution: Add and verify the relevant email sending domain(s) in your business unit. See (<https://help.salesforce.com/s/articleView?id=sf.mcae_email_add_domain.htm&type=5>)
+    for details.
+- code: '244'
+  message: We couldn’t send your email. Review your email and try again.
+  problem: There was a temporary connection issue.
+  solution: Try again later.
+- code: '245'
+  message: The supplied name is already in use.
+  problem: The supplied name is being used by another record.
+  solution: Pick a different record name and try again.
+- code: '246'
+  message: We couldn’t send your email. Review your email and try again later. Issues with the recipient’s
+    email address or service provider can prevent delivery.
+  problem: Your email likely has a delivery or content issue. For example, you forgot to add a sender
+    address, the recipient’s address is invalid, or required text is missing.
+  solution: Review the sender address, recipient address, and required text. Fix any issues and try again.

@@ -1,0 +1,92 @@
+generated: '2026-08-13'
+method: probed
+source: live GET of /.well-known/* on every apis.yml + OpenAPI servers[] host
+note: Neither Account Engagement API host (pi.pardot.com, pi.demo.pardot.com) nor the docs host (developer.salesforce.com)
+  serves any /.well-known/ document — every path returns 404. The one real hit is the OpenID Provider
+  Configuration on login.salesforce.com, which is the Salesforce OAuth authorization server the Account
+  Engagement API delegates authentication to (named as the authorizationUrl/tokenUrl in authentication/pardot-authentication.yml
+  and in the Salesforce authentication guide). Its scopes_supported array publishes the pardot_api scope,
+  which is the authoritative source for scopes/pardot-scopes.yml.
+probes:
+- host: login.salesforce.com
+  path: /.well-known/openid-configuration
+  status: 200
+  content_type: application/json
+  file: well-known/pardot-openid-configuration.json
+  document: true
+- host: login.salesforce.com
+  path: /.well-known/oauth-authorization-server
+  status: 404
+  document: false
+- host: login.salesforce.com
+  path: /.well-known/security.txt
+  status: 404
+  document: false
+- host: login.salesforce.com
+  path: /.well-known/api-catalog
+  status: 404
+  document: false
+- host: pi.pardot.com
+  path: /.well-known/security.txt
+  status: 404
+  document: false
+- host: pi.pardot.com
+  path: /.well-known/openid-configuration
+  status: 404
+  document: false
+- host: pi.pardot.com
+  path: /.well-known/oauth-authorization-server
+  status: 404
+  document: false
+- host: pi.pardot.com
+  path: /.well-known/api-catalog
+  status: 404
+  document: false
+- host: pi.pardot.com
+  path: /.well-known/ai-plugin.json
+  status: 404
+  document: false
+- host: pi.demo.pardot.com
+  path: /.well-known/openid-configuration
+  status: 404
+  document: false
+- host: pi.demo.pardot.com
+  path: /.well-known/security.txt
+  status: 404
+  document: false
+- host: pi.demo.pardot.com
+  path: /.well-known/api-catalog
+  status: 404
+  document: false
+- host: developer.salesforce.com
+  path: /.well-known/security.txt
+  status: 404
+  document: false
+- host: developer.salesforce.com
+  path: /.well-known/openid-configuration
+  status: 404
+  document: false
+- host: developer.salesforce.com
+  path: /.well-known/api-catalog
+  status: 404
+  document: false
+- host: developer.salesforce.com
+  path: /.well-known/ai-plugin.json
+  status: 404
+  document: false
+- host: www.salesforce.com
+  path: /.well-known/security.txt
+  status: 404
+  document: false
+- host: www.salesforce.com
+  path: /.well-known/api-catalog
+  status: 404
+  document: false
+- host: trust.salesforce.com
+  path: /.well-known/security.txt
+  status: 404
+  document: false
+security_txt:
+  served: false
+  note: No RFC 9116 security.txt on any probed host. Salesforce runs its disclosure programme at security.salesforce.com
+    and via security@salesforce.com instead — see security/pardot-vulnerability-disclosure.yml.

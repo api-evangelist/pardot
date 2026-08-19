@@ -14,6 +14,22 @@ info:
   contact:
     name: Salesforce
     url: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+  x-provenance:
+    openapi_published_by_provider: false
+    authored_by: API Evangelist
+    generated: '2026-08-13'
+    method: derived
+    derived_from: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    note: >-
+      Salesforce publishes no OpenAPI for Marketing Cloud Account Engagement (Pardot).
+      Probes of /openapi.json, /openapi.yaml, /swagger.json and /api-docs against
+      pi.pardot.com, pi.demo.pardot.com, developer.salesforce.com and www.salesforce.com
+      all returned 404 on 2026-08-13. This document is an API Evangelist transcription of
+      the provider's own v5 object reference pages and must not be read as a vendor
+      contract. The provider's only first-party machine-readable descriptions are the
+      legacy v3 WADL and XSDs in schemas/. The full documented v5 operation surface (162
+      operations across 36 objects) is captured in data-model/pardot-data-model.yml; this
+      spec covers a subset.
 servers:
 - url: https://pi.pardot.com/api/v5
   description: Pardot v5 production

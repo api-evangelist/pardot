@@ -1,0 +1,33 @@
+generated: '2026-08-13'
+method: generated
+source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html + repo artifacts
+note: Packaged Agent Skills for Marketing Cloud Account Engagement (Pardot) API v5. Salesforce publishes no
+  skills, no AGENTS.md and no llms-full docs bundle for this product, so these are authored by API Evangelist.
+  Every operation named in a skill is a method+URL taken verbatim from the provider's own v5 object reference
+  tables (captured in data-model/pardot-data-model.yml) — none is invented. The stable operationIds the skills
+  imply are defined in overlays/pardot-objects-api-overlay.yaml, because the underlying OpenAPI has none.
+skill_count: 4
+skills:
+- name: pardot-prospect-upsert
+  file: skills/pardot-prospect-upsert.md
+  summary: Create or update a prospect from an external system without producing duplicates, and tag it.
+  risk: write
+- name: pardot-list-nurture-enrollment
+  file: skills/pardot-list-nurture-enrollment.md
+  summary: Put prospects on a list so an Engagement Studio nurture program picks them up, then audit membership.
+  risk: write
+- name: pardot-engagement-activity-pull
+  file: skills/pardot-engagement-activity-pull.md
+  summary: Export visitor/visit/activity data to an external store without exhausting the daily allocation.
+  risk: read
+- name: pardot-bulk-action-job
+  file: skills/pardot-bulk-action-job.md
+  summary: Run and supervise a bulk action job of up to 100,000 records, including pause/resume/cancel and
+    error reports.
+  risk: destructive
+shared_rules:
+  auth: authentication/pardot-authentication.yml
+  conventions: conventions/pardot-conventions.yml
+  errors: errors/pardot-error-codes.yml
+  rate_limits: rate-limits/pardot-rate-limits.yml
+  agentic_access: agentic-access/pardot-agentic-access.yml

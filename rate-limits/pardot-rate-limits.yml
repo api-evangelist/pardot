@@ -1,0 +1,97 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.md
+docs: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html#rate-limits
+note: 'Account Engagement enforces limits two ways: a per-business-unit daily request allocation that
+  varies by edition, and a hard concurrency ceiling. Exhaustion is signalled in the response BODY as a
+  numeric error code, not by HTTP 429 and not by a RateLimit-* header family. The only runtime header
+  is x-api-usage, and it is opt-in: the caller must send X-Return-Api-Usage: 1.'
+limit_count: 5
+limits:
+- name: Daily API requests — Growth edition
+  scope: per-business-unit
+  window: 1 day
+  limit: 25000
+  burst: null
+  reset: Start of day in the account time zone
+  error_code: '122'
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.md
+- name: Daily API requests — Plus edition
+  scope: per-business-unit
+  window: 1 day
+  limit: 50000
+  burst: null
+  reset: Start of day in the account time zone
+  error_code: '122'
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.md
+- name: Daily API requests — Advanced edition
+  scope: per-business-unit
+  window: 1 day
+  limit: 100000
+  burst: null
+  reset: Start of day in the account time zone
+  error_code: '122'
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.md
+- name: Daily API requests — Premium edition
+  scope: per-business-unit
+  window: 1 day
+  limit: 100000
+  burst: null
+  reset: Start of day in the account time zone
+  error_code: '122'
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.md
+- name: Concurrent API requests
+  scope: per-business-unit
+  window: instantaneous
+  limit: 5
+  burst: null
+  reset: On request completion
+  error_code: '66'
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.md
+headers:
+  request:
+  - name: X-Return-Api-Usage
+    required: false
+    description: Set to 1 or true to have the response carry the x-api-usage header. Usage is NOT reported
+      unless this header is sent.
+    source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+  response:
+  - name: x-api-usage
+    description: Number of API calls made in the last day over the maximum calls the account can make
+      per day. Returned only when X-Return-Api-Usage is sent on the request.
+    source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+  standard_ratelimit_headers: false
+  retry_after: false
+exhaustion:
+  http_status: null
+  note: 'The docs do not publish an HTTP status for limit exhaustion. Both conditions are reported as
+    numeric body error codes: 122 (daily allocation exceeded) and 66 (more than five concurrent requests).
+    See errors/pardot-error-codes.yml.'
+  error_codes:
+  - '122'
+  - '66'
+other_ceilings:
+- name: Query page size
+  limit: 1000
+  default: 200
+  parameter: limit
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+- name: Offset paging ceiling
+  limit: 2000
+  parameter: offset
+  deprecated: true
+  note: offset is deprecated; beyond 2000 records the docs direct callers to the Export API or nextPageToken
+    paging.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+- name: Cursor pagination record ceiling
+  limit: 100000
+  note: 'A nextPageToken sequence stops generating tokens after 100,000 records and returns Pardot-Warning:
+    203.'
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+- name: nextPageToken lifetime
+  limit: 4 hours
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+- name: Bulk delete batch size
+  limit: 100000
+  note: Up to 100,000 prospects can be deleted asynchronously in one bulk action request.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/transitioning-v5.md

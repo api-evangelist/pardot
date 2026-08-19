@@ -1,0 +1,457 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements — Account Engagement (Pardot) API v5 Objects
+  version: 1.0.0
+  description: 'Overlay of API Evangelist enhancements over openapi/pardot-objects-api-openapi.yml. Salesforce publishes
+    NO OpenAPI for Account Engagement; the spec this overlay extends was written by API Evangelist from the provider''s
+    own v5 reference pages. This overlay adds what the underlying spec lacks and the docs do state: stable operationIds,
+    the shared v5 request/response semantics, the OAuth 2.0 flow and the required Pardot-Business-Unit-Id header,
+    the documented shared query parameters, and the real error envelope. It never invents an endpoint — every action
+    targets a path already present in the spec. Generated 2026-08-13.'
+extends: openapi/pardot-objects-api-openapi.yml
+x-provenance:
+  generated: '2026-08-13'
+  method: generated
+  source:
+  - https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+  - https://developer.salesforce.com/docs/marketing/pardot/guide/error-codes.md
+  - https://developer.salesforce.com/docs/marketing/pardot/guide/authentication.md
+  author: API Evangelist
+actions:
+- target: $.info
+  description: Record provenance and point at the real reference set.
+  update:
+    x-provenance:
+      openapi_published_by_provider: false
+      authored_by: API Evangelist
+      derived_from: https://developer.salesforce.com/docs/llms-pardot.txt
+      note: Salesforce publishes no OpenAPI for Account Engagement. This document is an API Evangelist transcription
+        of the provider's v5 object reference and must not be read as a vendor contract.
+    x-docs: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+- target: $.components.securitySchemes.BearerAuth
+  description: Bind the real Salesforce OAuth 2.0 authorization-code flow and the pardot_api scope.
+  update:
+    type: oauth2
+    description: Salesforce OAuth 2.0. Every request additionally requires the Pardot-Business-Unit-Id header.
+    flows:
+      authorizationCode:
+        authorizationUrl: https://login.salesforce.com/services/oauth2/authorize
+        tokenUrl: https://login.salesforce.com/services/oauth2/token
+        refreshUrl: https://login.salesforce.com/services/oauth2/token
+        scopes:
+          pardot_api: Access the Marketing Cloud Account Engagement (Pardot) API
+          refresh_token: Issue a refresh token
+- target: $.components
+  description: Add the documented shared parameters, the error envelope and the warning header.
+  update:
+    parameters:
+      BusinessUnitId:
+        name: Pardot-Business-Unit-Id
+        in: header
+        required: true
+        description: 18-character Account Engagement Business Unit ID (begins "0Uv"). Required on every request.
+        schema:
+          type: string
+      Fields:
+        name: fields
+        in: query
+        required: true
+        description: Comma-delimited allow-list of fields to return. Dot notation selects fields on related objects,
+          up to three object tracks.
+        schema:
+          type: string
+      Limit:
+        name: limit
+        in: query
+        required: false
+        description: Page size, 1-1000. Defaults to 200.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 200
+      Offset:
+        name: offset
+        in: query
+        required: false
+        deprecated: true
+        description: Deprecated. Index of the first record, max 2000. Beyond that use nextPageToken or the Export
+          API.
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 2000
+          default: 0
+      OrderBy:
+        name: orderBy
+        in: query
+        required: false
+        description: Single sort field with optional ASC/DESC. Defaults to "id ASC".
+        schema:
+          type: string
+      Deleted:
+        name: deleted
+        in: query
+        required: false
+        description: false (default), true, or all — controls whether recycle-bin records are returned.
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+          - all
+      NextPageToken:
+        name: nextPageToken
+        in: query
+        required: false
+        description: Opaque cursor from the previous page. When sent, only `fields` may accompany it; token expires
+          after 4 hours and a sequence stops at 100,000 records.
+        schema:
+          type: string
+      IfModifiedSince:
+        name: If-Modified-Since
+        in: header
+        required: false
+        description: RFC 7231 date-time. A record unchanged since this time answers 304.
+        schema:
+          type: string
+      ReturnApiUsage:
+        name: X-Return-Api-Usage
+        in: header
+        required: false
+        description: Set to 1 or true to have the response carry the x-api-usage header.
+        schema:
+          type: string
+          enum:
+          - '1'
+          - 'true'
+    schemas:
+      Error:
+        type: object
+        description: Account Engagement v5 error envelope. NOT RFC 9457.
+        properties:
+          code:
+            type: integer
+            description: Numeric error code from the published registry (208 codes).
+          message:
+            type: string
+        required:
+        - code
+        - message
+      PagedResponse:
+        type: object
+        properties:
+          values:
+            type: array
+            items:
+              type: object
+          nextPageToken:
+            type:
+            - string
+            - 'null'
+          nextPageUrl:
+            type:
+            - string
+            - 'null'
+    headers:
+      PardotWarning:
+        description: Pardot-Warning. 201 = record in recycle bin; 202 = values redacted by access rules; 203 = pagination
+          ceiling reached.
+        schema:
+          type: string
+      XApiUsage:
+        description: Calls made in the last day over the account daily maximum. Returned only when X-Return-Api-Usage
+          was sent.
+        schema:
+          type: string
+    responses:
+      BadRequest:
+        description: 400 Bad Request — missing or invalid parameters, or a disallowed parameter sent alongside nextPageToken.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Error'
+      NotFound:
+        description: 404 Not Found — no object with that id, or it is in the recycle bin.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Error'
+      MethodNotAllowed:
+        description: 405 Method Not Allowed — insufficient access rights, or a condition prevents the operation
+          (error code 108).
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Error'
+- target: $.paths['/objects/prospects'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryProspects
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query prospects. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation to pull
+      related objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated and
+      capped at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/prospects'].post
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: createProspects
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Create a record. Body is a JSON input representation; use `multipart/form-data` with `input` and
+      `file` parts when the object carries a file. Returns 201 with a `Location` header, or 204 when the caller
+      cannot read back the record. NOTE: there is no idempotency key — a retried create makes a second record.'
+- target: $.paths['/objects/prospects/{id}'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: readProspects
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: Read a single record by Account Engagement numeric id. `fields` is REQUIRED. Supports `If-Modified-Since`
+      (RFC 7231) and returns `Last-Modified`; an unchanged record answers 304 with an empty body.
+- target: $.paths['/objects/prospects/{id}'].patch
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: updateProspects
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: Update a record by id. Omitted fields are left unchanged. Returns 200 with the requested `fields`,
+      or 204 when no readable fields were requested.
+- target: $.paths['/objects/prospects/{id}'].delete
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: deleteProspects
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: Delete a record by id. Some object types move to the Account Engagement recycle bin rather than
+      being purged; related objects are never cascade-deleted. Returns 204, or 405 with error code 108 when the
+      record is referenced elsewhere.
+- target: $.paths['/objects/campaigns'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryCampaigns
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query campaigns. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation to pull
+      related objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated and
+      capped at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/campaigns'].post
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: createCampaigns
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Create a record. Body is a JSON input representation; use `multipart/form-data` with `input` and
+      `file` parts when the object carries a file. Returns 201 with a `Location` header, or 204 when the caller
+      cannot read back the record. NOTE: there is no idempotency key — a retried create makes a second record.'
+- target: $.paths['/objects/campaigns/{id}'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: readCampaigns
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: Read a single record by Account Engagement numeric id. `fields` is REQUIRED. Supports `If-Modified-Since`
+      (RFC 7231) and returns `Last-Modified`; an unchanged record answers 304 with an empty body.
+- target: $.paths['/objects/campaigns/{id}'].patch
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: updateCampaigns
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: Update a record by id. Omitted fields are left unchanged. Returns 200 with the requested `fields`,
+      or 204 when no readable fields were requested.
+- target: $.paths['/objects/lists'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryLists
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query lists. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation to pull related
+      objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated and capped
+      at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/lists'].post
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: createLists
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Create a record. Body is a JSON input representation; use `multipart/form-data` with `input` and
+      `file` parts when the object carries a file. Returns 201 with a `Location` header, or 204 when the caller
+      cannot read back the record. NOTE: there is no idempotency key — a retried create makes a second record.'
+- target: $.paths['/objects/lists/{id}'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: readLists
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: Read a single record by Account Engagement numeric id. `fields` is REQUIRED. Supports `If-Modified-Since`
+      (RFC 7231) and returns `Last-Modified`; an unchanged record answers 304 with an empty body.
+- target: $.paths['/objects/lists/{id}'].patch
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: updateLists
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: Update a record by id. Omitted fields are left unchanged. Returns 200 with the requested `fields`,
+      or 204 when no readable fields were requested.
+- target: $.paths['/objects/lists/{id}'].delete
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: deleteLists
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: Delete a record by id. Some object types move to the Account Engagement recycle bin rather than
+      being purged; related objects are never cascade-deleted. Returns 204, or 405 with error code 108 when the
+      record is referenced elsewhere.
+- target: $.paths['/objects/list-memberships'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryListMemberships
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query list memberships. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation
+      to pull related objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated
+      and capped at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/list-memberships'].post
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: createListMemberships
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Create a record. Body is a JSON input representation; use `multipart/form-data` with `input` and
+      `file` parts when the object carries a file. Returns 201 with a `Location` header, or 204 when the caller
+      cannot read back the record. NOTE: there is no idempotency key — a retried create makes a second record.'
+- target: $.paths['/objects/opportunities'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryOpportunities
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query opportunities. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation to
+      pull related objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated
+      and capped at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/opportunities/{id}'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: readOpportunities
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: Read a single record by Account Engagement numeric id. `fields` is REQUIRED. Supports `If-Modified-Since`
+      (RFC 7231) and returns `Last-Modified`; an unchanged record answers 304 with an empty body.
+- target: $.paths['/objects/emails'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryEmails
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query emails. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation to pull related
+      objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated and capped
+      at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/emails'].post
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: createEmails
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Create a record. Body is a JSON input representation; use `multipart/form-data` with `input` and
+      `file` parts when the object carries a file. Returns 201 with a `Location` header, or 204 when the caller
+      cannot read back the record. NOTE: there is no idempotency key — a retried create makes a second record.'
+- target: $.paths['/objects/emails/{id}'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: readEmails
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: Read a single record by Account Engagement numeric id. `fields` is REQUIRED. Supports `If-Modified-Since`
+      (RFC 7231) and returns `Last-Modified`; an unchanged record answers 304 with an empty body.
+- target: $.paths['/objects/forms'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryForms
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query forms. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation to pull related
+      objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated and capped
+      at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/forms/{id}'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: readForms
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: Read a single record by Account Engagement numeric id. `fields` is REQUIRED. Supports `If-Modified-Since`
+      (RFC 7231) and returns `Last-Modified`; an unchanged record answers 304 with an empty body.
+- target: $.paths['/objects/visits'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryVisits
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query visits. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation to pull related
+      objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated and capped
+      at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/visitors'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryVisitors
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query visitors. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation to pull
+      related objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated and
+      capped at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/custom-fields'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryCustomFields
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query custom fields. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation to
+      pull related objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated
+      and capped at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/custom-fields'].post
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: createCustomFields
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Create a record. Body is a JSON input representation; use `multipart/form-data` with `input` and
+      `file` parts when the object carries a file. Returns 201 with a `Location` header, or 204 when the caller
+      cannot read back the record. NOTE: there is no idempotency key — a retried create makes a second record.'
+- target: $.paths['/objects/custom-redirects'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryCustomRedirects
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query custom redirects. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation
+      to pull related objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated
+      and capped at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/dynamic-content'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryDynamicContent
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query dynamic content. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation
+      to pull related objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated
+      and capped at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/files'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryFiles
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query files. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation to pull related
+      objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated and capped
+      at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/folders'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryFolders
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query folders. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation to pull
+      related objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated and
+      capped at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/tags'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryTags
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query tags. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation to pull related
+      objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated and capped
+      at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/tracker-domains'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryTrackerDomains
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query tracker domains. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation
+      to pull related objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated
+      and capped at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/users'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryUsers
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query users. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation to pull related
+      objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated and capped
+      at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'
+- target: $.paths['/objects/layout-templates'].get
+  description: Add a stable operationId and the documented v5 semantics.
+  update:
+    operationId: queryLayoutTemplates
+    x-ae-source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+    description: 'Query layout templates. `fields` is REQUIRED — a comma-delimited allow-list, with dot notation
+      to pull related objects up to three tracks deep. Paginate with `nextPageToken` (cursor); `offset` is deprecated
+      and capped at 2000. Responses are `{"values": [...], "nextPageToken": ..., "nextPageUrl": ...}`.'

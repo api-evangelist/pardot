@@ -1,0 +1,49 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.salesforce.com/docs/marketing/pardot/guide/tracking-and-consent-overview.md
+docs: https://developer.salesforce.com/docs/marketing/pardot/guide/tracking-and-consent-overview.html
+note: 'Account Engagement ships one genuine client-side component surface: the Tracking and Consent JavaScript
+  API. It is a command-queue tracker (the `pdt()` function) plus a hosted consent banner, loaded from the customer''s
+  own tracker domain. Everything else Account Engagement renders in a browser — forms, form handlers, landing
+  pages — is server-rendered and hosted by Account Engagement rather than an embeddable component library,
+  so it is listed as a hosted surface, not a component.'
+families:
+- family: Tracking and Consent JavaScript API
+  kind: command-queue tracker
+  loader: //<your-tracker-domain>/pdt.js (async script tag, unpinned)
+  global: pdt(<command>, ...args)
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/tracking-and-consent-functions.html
+  components:
+  - name: create
+    signature: create(<integer> piAId, <integer> piCId, <string> trackerDomainHostname)
+    description: Creates the Account Engagement tracker. Add 1000 to the instance ID and campaign ID.
+  - name: set
+    signature: set(<string> propertyName, value)
+    description: Updates a tracked property; later page views carry the new value.
+  - name: sendPageView
+    signature: sendPageView()
+    description: Sends a page view with the current tracker properties. No request is made when the pi_opt_in
+      cookie is false.
+  - name: showConsentBanner
+    signature: showConsentBanner()
+    description: Shows the Account Engagement consent banner so a visitor can grant tracking consent.
+  - name: hideConsentBanner
+    signature: hideConsentBanner(<null|boolean> status)
+    description: Hides the banner; a boolean also writes the pi_opt_in status, null leaves it unchanged.
+  consent_cookie: pi_opt_in
+hosted_surfaces:
+- name: Account Engagement forms and form handlers
+  kind: hosted/iframe
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/form-v5.html
+- name: Landing pages and layout templates
+  kind: hosted
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/landing-page-v5.html
+extension_points:
+- name: Marketing App Extensions
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/marketing-app-extensions.html
+- name: External Actions
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/external-actions-guide.html
+- name: External Activities
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/external-activity-guide.html
+- name: Email Builder extensibility
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/builder-extensibility-guide.html

@@ -1,0 +1,1894 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.salesforce.com/docs/llms-pardot.txt (object reference set, v5)
+note: 'Entity graph for Account Engagement API v5, read from the per-object reference pages Salesforce publishes
+  as markdown. Relationship edges are the object-typed fields the reference tables declare (the docs render the
+  field type as a link to the related object page); the matching scalar <name>Id field is the writable side of the
+  same edge. v5 traverses relationships with dot notation in the `fields` parameter, up to three object tracks in
+  a single call. Derived from the docs, not from the OpenAPI: openapi/pardot-objects-api-openapi.yml carries paths
+  but no component schemas.'
+id_style: integer (Account Engagement numeric object IDs; distinct from the 18-character Salesforce IDs used for
+  the Business Unit and for Salesforce-side records)
+traversal:
+  param: fields
+  notation: dot
+  max_depth: 3
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+entity_count: 36
+relationship_count: 125
+entities:
+- entity: Account Object
+  doc_slug: account-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/account-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/account?<params>
+  relationships:
+  - field: admin
+    target_title: User
+    target: user-v5
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: pluginCampaign
+    target_title: Campaign
+    target: campaign-v5
+  id_reference_fields:
+  - adminId
+  - createdById
+  - id
+  - pluginCampaignId
+  - updatedById
+- entity: Campaign Object
+  doc_slug: campaign-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/campaign-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/campaigns/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/campaigns?<params>
+  - name: Connect Salesforce Campaign
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/campaigns/<id>/do/connectSalesforceCampaign
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/campaigns/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/campaigns/<id>/do/removeTag
+  relationships:
+  - field: folder
+    target_title: Folder
+    target: folder-v5
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: parentCampaign
+    target_title: Campaign
+    target: campaign-v5
+  id_reference_fields:
+  - createdById
+  - folderId
+  - id
+  - parentCampaignId
+  - updatedById
+- entity: Custom Field Object
+  doc_slug: custom-field-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/custom-field-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/custom-fields/<id>?<params>
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/custom-fields?<params>
+  - name: Update
+    method: PATCH
+    url: https://pi.pardot.com/api/v5/objects/custom-fields/<id>?<params>
+  - name: Delete
+    method: DELETE
+    url: https://pi.pardot.com/api/v5/objects/custom-fields/<id>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/custom-fields?<params>
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/custom-fields/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/custom-fields/<id>/do/removeTag
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  id_reference_fields:
+  - createdById
+  - id
+  - updatedById
+- entity: Custom Redirect Object
+  doc_slug: custom-redirect-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/custom-redirect-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/custom-redirects/<id>?<params>
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/custom-redirects?<params>
+  - name: Update
+    method: PATCH
+    url: https://pi.pardot.com/api/v5/objects/custom-redirects/<id>?<params>
+  - name: Delete
+    method: DELETE
+    url: https://pi.pardot.com/api/v5/objects/custom-redirects/<id>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/custom-redirects?<params>
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/custom-redirects/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/custom-redirects/<id>/do/removeTag
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: trackerDomain
+    target_title: TrackerDomain
+    target: tracker-domain-v5
+  - field: campaign
+    target_title: Campaign
+    target: campaign-v5
+  - field: folder
+    target_title: Folder
+    target: folder-v5
+  id_reference_fields:
+  - campaignId
+  - createdById
+  - folderId
+  - id
+  - trackerDomainId
+  - updatedById
+- entity: Dynamic Content Object
+  doc_slug: dynamic-content-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/dynamic-content-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/dynamic-contents/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/dynamic-contents?<params>
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/dynamic-contents?<params>
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/dynamic-contents/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/dynamic-contents/<id>/do/removeTag
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: campaign
+    target_title: Campaign
+    target: campaign-v5
+  - field: folder
+    target_title: Folder
+    target: folder-v5
+  - field: trackerDomain
+    target_title: Tracker Domain
+    target: tracker-domain-v5
+  id_reference_fields:
+  - createdById
+  - folderId
+  - id
+  - trackerDomainId
+  - updatedById
+- entity: Dynamic Content Variation Object
+  doc_slug: dynamic-content-variation
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/dynamic-content-variation.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/dynamic-content-variations/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/dynamic-content-variations?<params>
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/dynamic-content-variations?<params>
+  relationships:
+  - field: dynamicContent
+    target_title: Dynamic Content
+    target: dynamic-content-v5
+  id_reference_fields:
+  - dynamicContentId
+  - id
+- entity: Email Template Object
+  doc_slug: email-template-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/email-template-v5.html
+  operations:
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/email-templates?<params>
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/email-templates/<id>?<params>
+  - name: Update
+    method: PATCH
+    url: https://pi.pardot.com/api/v5/objects/email-templates/<id>?<params>
+  - name: Delete
+    method: DELETE
+    url: https://pi.pardot.com/api/v5/objects/email-templates/<id>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/email-templates?<params>
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/email-templates/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/email-templates/<id>/do/removeTag
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: campaign
+    target_title: Campaign
+    target: campaign-v5
+  - field: folder
+    target_title: Folder
+    target: folder-v5
+  - field: trackerDomain
+    target_title: Tracker Domain
+    target: tracker-domain-v5
+  id_reference_fields:
+  - campaignId
+  - createdById
+  - folderId
+  - id
+  - trackerDomainId
+  - updatedById
+- entity: Email Object
+  doc_slug: email-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/email-v5.html
+  operations:
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/emails?<params>
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/emails/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/emails?<params>
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/emails/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/emails/<id>/do/removeTag
+  - name: Copy to CMS
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/emails/<id>/do/copyToCms
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: campaign
+    target_title: Campaign
+    target: campaign-v5
+  - field: list
+    target_title: List
+    target: list-v5
+  - field: listEmail
+    target_title: List Email
+    target: list-email-v5
+  id_reference_fields:
+  - campaignId
+  - createdById
+  - emailTemplateId
+  - folderId
+  - id
+  - listEmailId
+  - listId
+  - prospectId
+  - trackerDomainId
+- entity: Engagement Studio Program Object
+  doc_slug: engagement-studio-program-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/engagement-studio-program-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/engagement-studio-programs/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/engagement-studio-programs?<params>
+  - name: Download Program Structure
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/engagement-studio-programs/<id>/download-program-structure
+  - name: Create with File
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/engagement-studio-programs?<params>
+  relationships:
+  - field: scheduleCreatedBy
+    target_title: User
+    target: user-v5
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  id_reference_fields:
+  - createdById
+  - folderId
+  - id
+  - scheduleCreatedById
+  - updatedById
+- entity: Export API Overview
+  doc_slug: export-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/export-v5.html
+  operations: []
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  id_reference_fields:
+  - createdById
+  - id
+  - updatedById
+- entity: External Activity Object
+  doc_slug: external-activities-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/external-activities-v5.html
+  operations:
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/external-activities
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/external-activities/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/external-activities
+- entity: File Object
+  doc_slug: file-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/file-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/files/<id>?<params>
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/files?<params>
+  - name: Update
+    method: PATCH
+    url: https://pi.pardot.com/api/v5/objects/files/<id>?<params>
+  - name: Delete
+    method: DELETE
+    url: https://pi.pardot.com/api/v5/objects/files/<id>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/files?<params>
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/files/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/files/<id>/do/removeTag
+  - name: Copy to CMS
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/files/<id>/do/copyToCms
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: trackerDomain
+    target_title: TrackerDomain
+    target: tracker-domain-v5
+  - field: campaign
+    target_title: Campaign
+    target: campaign-v5
+  - field: folder
+    target_title: Folder
+    target: folder-v5
+  - field: salesforceCmsId
+    target_title: List Email
+    target: list-email-v5
+  id_reference_fields:
+  - campaignId
+  - createdById
+  - folderId
+  - id
+  - trackerDomainId
+  - updatedById
+- entity: Folder Contents Object
+  doc_slug: folder-contents-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/folder-contents-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/folder-contents/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/folder-contents?<params>
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  id_reference_fields:
+  - createdById
+  - folderId
+  - id
+  - objectId
+  - updatedById
+- entity: Folder Object
+  doc_slug: folder-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/folder-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/folders/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/folders?<params>
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: parentFolder
+    target_title: Folder
+    target: folder-v5
+  id_reference_fields:
+  - createdById
+  - id
+  - parentFolderId
+  - updatedById
+- entity: Form Field Object
+  doc_slug: form-field-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/form-field-v5.html
+  operations:
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/form-fields
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/form-fields/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/form-fields?<params>
+  - name: Add Dependent
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/form-fields/<id>/do/addDependent
+  - name: Add Progressive
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/form-fields/<id>/do/addProgressive
+  - name: Add Value
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/form-fields/<id>/do/addValue
+  - name: Reorder Form Field Values
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/form-fields/<id>/do/reorderFormFieldValues
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/form-fields/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/form-fields/<id>/do/removeTag
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  id_reference_fields:
+  - createdById
+  - formId
+  - id
+  - updatedById
+- entity: Form Handler Field Object
+  doc_slug: form-handler-field-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/form-handler-field-v5.html
+  operations:
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/form-handler-fields
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/form-handler-fields/<id>?<params>
+  - name: Update
+    method: PATCH
+    url: https://pi.pardot.com/api/v5/objects/form-handler-fields/<id>
+  - name: Delete
+    method: DELETE
+    url: https://pi.pardot.com/api/v5/objects/form-handler-fields/<id>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/form-handler-fields?<params>
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: formHandler
+    target_title: Form Handler
+    target: form-handler-v5
+  id_reference_fields:
+  - createdById
+  - formHandlerId
+  - id
+- entity: Form Handler Object
+  doc_slug: form-handler-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/form-handler-v5.html
+  operations:
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/form-handlers
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/form-handlers/<id>?<params>
+  - name: Update
+    method: PATCH
+    url: https://pi.pardot.com/api/v5/objects/form-handlers/<id>
+  - name: Delete
+    method: DELETE
+    url: https://pi.pardot.com/api/v5/objects/form-handlers/<id>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/form-handlers?<params>
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/form-handlers/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/form-handlers/<id>/do/removeTag
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: campaign
+    target_title: Campaign
+    target: campaign-v5
+  - field: folder
+    target_title: Folder
+    target: folder-v5
+  - field: trackerDomain
+    target_title: Tracker Domain
+    target: tracker-domain-v5
+  id_reference_fields:
+  - campaignId
+  - createdById
+  - folderId
+  - id
+  - trackerDomainId
+  - updatedById
+- entity: Form Object
+  doc_slug: form-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/form-v5.html
+  operations:
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/forms/<id>/do/addTag
+  - name: Copy to CMS
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/forms/<id>/do/copyToCms
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/forms
+  - name: Delete
+    method: DELETE
+    url: https://pi.pardot.com/api/v5/objects/forms/<id>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/forms?<params>
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/forms/<id>?<params>
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/forms/<id>/do/removeTag
+  - name: Reorder Form Fields
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/forms/<id>/do/reorderFormFields
+  - name: Undelete
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/forms/do/undelete
+  relationships:
+  - field: campaign
+    target_title: Campaign
+    target: campaign-v5
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: folder
+    target_title: Folder
+    target: folder-v5
+  - field: layoutTemplate
+    target_title: LayoutTemplate
+    target: layout-template-v5
+  - field: trackerDomain
+    target_title: TrackerDomain
+    target: tracker-domain-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  id_reference_fields:
+  - campaignId
+  - createdById
+  - folderId
+  - id
+  - layoutTemplateId
+  - trackerDomainId
+  - updatedById
+- entity: Landing Page Object
+  doc_slug: landing-page-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/landing-page-v5.html
+  operations:
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/landing-pages?<params>
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/landing-pages/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/landing-pages?<params>
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/landing-pages/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/landing-pages/<id>/do/removeTag
+  - name: Copy to CMS
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/landing-pages/<id>/do/copyToCms
+  relationships:
+  - field: layoutTemplate
+    target_title: Layout Template
+    target: layout-template-v5
+  - field: form
+    target_title: Form
+    target: form-v5
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: trackerDomain
+    target_title: TrackerDomain
+    target: tracker-domain-v5
+  - field: campaign
+    target_title: Campaign
+    target: campaign-v5
+  - field: folder
+    target_title: Folder
+    target: folder-v5
+  id_reference_fields:
+  - campaignId
+  - createdById
+  - folderId
+  - formId
+  - id
+  - layoutTemplateId
+  - trackerDomainId
+  - updatedById
+- entity: Layout Template Object
+  doc_slug: layout-template-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/layout-template-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/layout-templates/<id>?<params>
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/layout-templates?<params>
+  - name: Update
+    method: PATCH
+    url: https://pi.pardot.com/api/v5/objects/layout-templates/<id>?<params>
+  - name: Delete
+    method: DELETE
+    url: https://pi.pardot.com/api/v5/objects/layout-templates/<id>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/layout-templates?<params>
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/layout-templates/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/layout-templates/<id>/do/removeTag
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: folder
+    target_title: Folder
+    target: folder-v5
+  id_reference_fields:
+  - createdById
+  - folderId
+  - id
+  - updatedById
+- entity: Lifecycle History Object
+  doc_slug: lifecycle-history-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/lifecycle-history-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/lifecycle-histories/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/lifecycle-histories?<params>
+  relationships:
+  - field: prospect
+    target_title: Prospect
+    target: prospect-v5
+  - field: previousStage
+    target_title: Lifecycle Stage
+    target: lifecycle-stage-v5
+  - field: nextStage
+    target_title: Lifecycle Stage
+    target: lifecycle-stage-v5
+  id_reference_fields:
+  - id
+  - nextStageId
+  - previousStageId
+  - prospectId
+- entity: Lifecycle Stage Object
+  doc_slug: lifecycle-stage-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/lifecycle-stage-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/lifecycle-stages/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/lifecycle-stages?<params>
+  id_reference_fields:
+  - id
+- entity: List Email Object
+  doc_slug: list-email-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/list-email-v5.html
+  operations:
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/list-emails?<params>
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/list-emails/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/list-emails?<params>
+  - name: Statistics
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/list-emails/<id>/stats
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: campaign
+    target_title: Campaign
+    target: campaign-v5
+  - field: folder
+    target_title: Folder
+    target: folder-v5
+  - field: trackerDomain
+    target_title: Tracker Domain
+    target: tracker-domain-v5
+  id_reference_fields:
+  - campaignId
+  - createdById
+  - emailTemplateId
+  - folderId
+  - id
+  - trackerDomainId
+  - updatedById
+- entity: List Membership Object
+  doc_slug: list-membership-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/list-membership-v5.html
+  operations:
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/list-memberships?<params>
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/list-memberships/<id>?<params>
+  - name: Update
+    method: PATCH
+    url: https://pi.pardot.com/api/v5/objects/list-memberships/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/list-memberships?<params>
+  - name: Delete
+    method: DELETE
+    url: https://pi.pardot.com/api/v5/objects/list-memberships/<id>
+  relationships:
+  - field: prospect
+    target_title: Prospect
+    target: prospect-v5
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: list
+    target_title: List
+    target: list-v5
+  id_reference_fields:
+  - createdById
+  - id
+  - listId
+  - updatedById
+- entity: List Object
+  doc_slug: list-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/list-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/lists/<id>?<params>
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/lists?<params>
+  - name: Update
+    method: PATCH
+    url: https://pi.pardot.com/api/v5/objects/lists/<id>?<params>
+  - name: Delete
+    method: DELETE
+    url: https://pi.pardot.com/api/v5/objects/lists/<id>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/lists?<params>
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/lists/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/lists/<id>/do/removeTag
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: campaign
+    target_title: Campaign
+    target: campaign-v5
+  - field: folder
+    target_title: Folder
+    target: folder-v5
+  id_reference_fields:
+  - campaignId
+  - createdById
+  - folderId
+  - id
+  - updatedById
+- entity: Opportunity Object
+  doc_slug: opportunity-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/opportunity-v5.html
+  operations:
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/opportunities?<params>
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/opportunities/<id>?<params>
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/opportunities/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/opportunities/<id>/do/removeTag
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: campaign
+    target_title: Campaign
+    target: campaign-v5
+  id_reference_fields:
+  - campaignId
+  - createdById
+  - id
+  - updatedById
+- entity: Prospect Account Object
+  doc_slug: prospect-account-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/prospect-account-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/prospect-accounts/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/prospect-accounts?<params>
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: assignedTo
+    target_title: User
+    target: user-v5
+  id_reference_fields:
+  - assignedToId
+  - createdById
+  - id
+  - updatedById
+- entity: Tag Object
+  doc_slug: tag-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/tag-v5.html
+  operations:
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/tags?<params>
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/tags/<id>?<params>
+  - name: Update
+    method: PATCH
+    url: https://pi.pardot.com/api/v5/objects/tags/<id>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/tags?<params>
+  - name: Delete
+    method: DELETE
+    url: https://pi.pardot.com/api/v5/objects/tags/<id>
+  - name: Merge Tags
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/tags/<id>/do/mergeTags
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  id_reference_fields:
+  - createdById
+  - id
+  - updatedById
+- entity: Tagged Object
+  doc_slug: tagged-object-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/tagged-object-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/tagged-objects/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/tagged-objects?<params>
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: tag
+    target_title: Tag
+    target: tag-v5
+  id_reference_fields:
+  - createdById
+  - id
+  - objectId
+  - tagId
+- entity: Tracker Domain Object
+  doc_slug: tracker-domain-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/tracker-domain-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/tracker-domains/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/tracker-domains?<params>
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: sslRequestedBy
+    target_title: User
+    target: user-v5
+  - field: defaultCampaign
+    target_title: Campaign
+    target: campaign-v5
+  id_reference_fields:
+  - createdById
+  - defaultCampaignId
+  - id
+  - sslRequestedById
+  - updatedById
+- entity: User Object
+  doc_slug: user-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/user-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/users/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/users?<params>
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/users/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/users/<id>/do/removeTag
+  id_reference_fields:
+  - createdById
+  - id
+  - updatedById
+- entity: Visit Object
+  doc_slug: visit-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/visit-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/visits/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/visits?<params>
+  relationships:
+  - field: prospect
+    target_title: Prospect
+    target: prospect-v5
+  id_reference_fields:
+  - id
+  - prospectId
+  - visitorId
+- entity: Visitor Activity Object
+  doc_slug: visitor-activity-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/visitor-activity-v5.html
+  operations:
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/visitor-activities?<params>
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/visitor-activities/<id>?<params>
+  relationships:
+  - field: campaign
+    target_title: Campaign
+    target: campaign-v5
+  - field: customRedirect
+    target_title: Custom Redirect
+    target: custom-redirect-v5
+  - field: emailTemplate
+    target_title: Email Template
+    target: email-template-v5
+  - field: email
+    target_title: Email
+    target: email-v5
+  - field: file
+    target_title: File
+    target: file-v5
+  - field: formHandler
+    target_title: Form Handler
+    target: form-handler-v5
+  - field: form
+    target_title: Form
+    target: form-v5
+  - field: landingPage
+    target_title: Landing Page
+    target: landing-page-v5
+  - field: listEmail
+    target_title: List Email
+    target: list-email-v5
+  - field: opportunity
+    target_title: Opportunity
+    target: opportunity-v5
+  - field: prospect
+    target_title: Prospect
+    target: prospect-v5
+  - field: visit
+    target_title: Visit
+    target: visit-v5
+  - field: visitorPageView
+    target_title: Visitor Page View
+    target: visitor-page-view-v5
+  - field: visitor
+    target_title: Visitor
+    target: visitor-v5
+  id_reference_fields:
+  - campaignId
+  - customRedirectId
+  - emailId
+  - emailTemplateId
+  - fileId
+  - formHandlerId
+  - formId
+  - id
+  - landingPageId
+  - listEmailId
+  - multivariateTestVariationId
+  - opportunityId
+  - paidSearchAdId
+  - prospectId
+  - siteSearchQueryId
+  - visitId
+  - visitorId
+  - visitorPageViewId
+- entity: Visitor Page View Object
+  doc_slug: visitor-page-view-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/visitor-page-view-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/visitor-page-views/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/visitor-page-views?<params>
+  relationships:
+  - field: campaign
+    target_title: Campaign
+    target: campaign-v5
+  - field: visit
+    target_title: Visit
+    target: visit-v5
+  id_reference_fields:
+  - campaignId
+  - id
+  - visitId
+  - visitorId
+- entity: Visitor Object
+  doc_slug: visitor-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/visitor-v5.html
+  operations:
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/visitors/<id>?<params>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/visitors?<params>
+  - name: Assign to Prospect
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/visitors/{id}/do/assignToProspect
+  - name: Identify Company
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/visitors/{id}/do/identifyCompany
+  relationships:
+  - field: prospectId
+    target_title: Prospect
+    target: prospect-v5
+  - field: campaignId
+    target_title: Campaign
+    target: campaign-v5
+  id_reference_fields:
+  - id
+- entity: Prospect Object
+  doc_slug: prospect-v5
+  docs: https://developer.salesforce.com/docs/marketing/pardot/guide/prospect-v5.html
+  operations:
+  - name: Create
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/prospects
+  - name: Read
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/prospects/<id>?<params>
+  - name: Update
+    method: PATCH
+    url: https://pi.pardot.com/api/v5/objects/prospects/<id>
+  - name: Query
+    method: GET
+    url: https://pi.pardot.com/api/v5/objects/prospects?<params>
+  - name: Delete
+    method: DELETE
+    url: https://pi.pardot.com/api/v5/objects/prospects/<id>
+  - name: Upsert (Record with Latest Activity At by Email)
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/prospects/do/upsertLatestByEmail
+  - name: Undelete (Record in deleted state with Latest Activity At by Email)
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/prospects/do/undelete
+  - name: Add Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/prospects/<id>/do/addTag
+  - name: Remove Tag
+    method: POST
+    url: https://pi.pardot.com/api/v5/objects/prospects/<id>/do/removeTag
+  relationships:
+  - field: createdBy
+    target_title: User
+    target: user-v5
+  - field: updatedBy
+    target_title: User
+    target: user-v5
+  - field: assignedTo
+    target_title: User
+    target: user-v5
+  - field: campaign
+    target_title: Campaign
+    target: campaign-v5
+  - field: prospectAccount
+    target_title: Prospect Account
+    target: prospect-account-v5
+  id_reference_fields:
+  - assignedToId
+  - campaignId
+  - createdById
+  - id
+  - lifecycleStageId
+  - profileId
+  - prospectAccountId
+  - salesforceOwnerId
+  - updatedById
+  - userId
+relationships:
+- from: account-v5
+  field: admin
+  cardinality: has_one
+  to: user-v5
+  via: adminId
+- from: account-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: account-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: account-v5
+  field: pluginCampaign
+  cardinality: has_one
+  to: campaign-v5
+  via: pluginCampaignId
+- from: campaign-v5
+  field: folder
+  cardinality: has_one
+  to: folder-v5
+  via: folderId
+- from: campaign-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: campaign-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: campaign-v5
+  field: parentCampaign
+  cardinality: has_one
+  to: campaign-v5
+  via: parentCampaignId
+- from: custom-field-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: custom-field-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: custom-redirect-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: custom-redirect-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: custom-redirect-v5
+  field: trackerDomain
+  cardinality: has_one
+  to: tracker-domain-v5
+  via: trackerDomainId
+- from: custom-redirect-v5
+  field: campaign
+  cardinality: has_one
+  to: campaign-v5
+  via: campaignId
+- from: custom-redirect-v5
+  field: folder
+  cardinality: has_one
+  to: folder-v5
+  via: folderId
+- from: dynamic-content-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: dynamic-content-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: dynamic-content-v5
+  field: campaign
+  cardinality: has_one
+  to: campaign-v5
+  via: campaign
+- from: dynamic-content-v5
+  field: folder
+  cardinality: has_one
+  to: folder-v5
+  via: folderId
+- from: dynamic-content-v5
+  field: trackerDomain
+  cardinality: has_one
+  to: tracker-domain-v5
+  via: trackerDomainId
+- from: dynamic-content-variation
+  field: dynamicContent
+  cardinality: has_one
+  to: dynamic-content-v5
+  via: dynamicContentId
+- from: email-template-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: email-template-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: email-template-v5
+  field: campaign
+  cardinality: has_one
+  to: campaign-v5
+  via: campaignId
+- from: email-template-v5
+  field: folder
+  cardinality: has_one
+  to: folder-v5
+  via: folderId
+- from: email-template-v5
+  field: trackerDomain
+  cardinality: has_one
+  to: tracker-domain-v5
+  via: trackerDomainId
+- from: email-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: email-v5
+  field: campaign
+  cardinality: has_one
+  to: campaign-v5
+  via: campaignId
+- from: email-v5
+  field: list
+  cardinality: has_one
+  to: list-v5
+  via: listId
+- from: email-v5
+  field: listEmail
+  cardinality: has_one
+  to: list-email-v5
+  via: listEmailId
+- from: engagement-studio-program-v5
+  field: scheduleCreatedBy
+  cardinality: has_one
+  to: user-v5
+  via: scheduleCreatedById
+- from: engagement-studio-program-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: engagement-studio-program-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: export-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: export-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: file-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: file-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: file-v5
+  field: trackerDomain
+  cardinality: has_one
+  to: tracker-domain-v5
+  via: trackerDomainId
+- from: file-v5
+  field: campaign
+  cardinality: has_one
+  to: campaign-v5
+  via: campaignId
+- from: file-v5
+  field: folder
+  cardinality: has_one
+  to: folder-v5
+  via: folderId
+- from: file-v5
+  field: salesforceCmsId
+  cardinality: has_one
+  to: list-email-v5
+  via: salesforceCmsId
+- from: folder-contents-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: folder-contents-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: folder-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: folder-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: folder-v5
+  field: parentFolder
+  cardinality: has_one
+  to: folder-v5
+  via: parentFolderId
+- from: form-field-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: form-field-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: form-handler-field-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: form-handler-field-v5
+  field: formHandler
+  cardinality: has_one
+  to: form-handler-v5
+  via: formHandlerId
+- from: form-handler-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: form-handler-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: form-handler-v5
+  field: campaign
+  cardinality: has_one
+  to: campaign-v5
+  via: campaignId
+- from: form-handler-v5
+  field: folder
+  cardinality: has_one
+  to: folder-v5
+  via: folderId
+- from: form-handler-v5
+  field: trackerDomain
+  cardinality: has_one
+  to: tracker-domain-v5
+  via: trackerDomainId
+- from: form-v5
+  field: campaign
+  cardinality: has_one
+  to: campaign-v5
+  via: campaignId
+- from: form-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: form-v5
+  field: folder
+  cardinality: has_one
+  to: folder-v5
+  via: folderId
+- from: form-v5
+  field: layoutTemplate
+  cardinality: has_one
+  to: layout-template-v5
+  via: layoutTemplateId
+- from: form-v5
+  field: trackerDomain
+  cardinality: has_one
+  to: tracker-domain-v5
+  via: trackerDomainId
+- from: form-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: landing-page-v5
+  field: layoutTemplate
+  cardinality: has_one
+  to: layout-template-v5
+  via: layoutTemplateId
+- from: landing-page-v5
+  field: form
+  cardinality: has_one
+  to: form-v5
+  via: formId
+- from: landing-page-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: landing-page-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: landing-page-v5
+  field: trackerDomain
+  cardinality: has_one
+  to: tracker-domain-v5
+  via: trackerDomainId
+- from: landing-page-v5
+  field: campaign
+  cardinality: has_one
+  to: campaign-v5
+  via: campaignId
+- from: landing-page-v5
+  field: folder
+  cardinality: has_one
+  to: folder-v5
+  via: folderId
+- from: layout-template-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: layout-template-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: layout-template-v5
+  field: folder
+  cardinality: has_one
+  to: folder-v5
+  via: folderId
+- from: lifecycle-history-v5
+  field: prospect
+  cardinality: has_one
+  to: prospect-v5
+  via: prospectId
+- from: lifecycle-history-v5
+  field: previousStage
+  cardinality: has_one
+  to: lifecycle-stage-v5
+  via: previousStageId
+- from: lifecycle-history-v5
+  field: nextStage
+  cardinality: has_one
+  to: lifecycle-stage-v5
+  via: nextStageId
+- from: list-email-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: list-email-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: list-email-v5
+  field: campaign
+  cardinality: has_one
+  to: campaign-v5
+  via: campaignId
+- from: list-email-v5
+  field: folder
+  cardinality: has_one
+  to: folder-v5
+  via: folderId
+- from: list-email-v5
+  field: trackerDomain
+  cardinality: has_one
+  to: tracker-domain-v5
+  via: trackerDomainId
+- from: list-membership-v5
+  field: prospect
+  cardinality: has_one
+  to: prospect-v5
+  via: prospect
+- from: list-membership-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: list-membership-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: list-membership-v5
+  field: list
+  cardinality: has_one
+  to: list-v5
+  via: listId
+- from: list-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: list-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: list-v5
+  field: campaign
+  cardinality: has_one
+  to: campaign-v5
+  via: campaignId
+- from: list-v5
+  field: folder
+  cardinality: has_one
+  to: folder-v5
+  via: folderId
+- from: opportunity-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: opportunity-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: opportunity-v5
+  field: campaign
+  cardinality: has_one
+  to: campaign-v5
+  via: campaignId
+- from: prospect-account-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: prospect-account-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: prospect-account-v5
+  field: assignedTo
+  cardinality: has_one
+  to: user-v5
+  via: assignedToId
+- from: tag-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: tag-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: tagged-object-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: tagged-object-v5
+  field: tag
+  cardinality: has_one
+  to: tag-v5
+  via: tagId
+- from: tracker-domain-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: tracker-domain-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: tracker-domain-v5
+  field: sslRequestedBy
+  cardinality: has_one
+  to: user-v5
+  via: sslRequestedById
+- from: tracker-domain-v5
+  field: defaultCampaign
+  cardinality: has_one
+  to: campaign-v5
+  via: defaultCampaignId
+- from: visit-v5
+  field: prospect
+  cardinality: has_one
+  to: prospect-v5
+  via: prospectId
+- from: visitor-activity-v5
+  field: campaign
+  cardinality: has_one
+  to: campaign-v5
+  via: campaignId
+- from: visitor-activity-v5
+  field: customRedirect
+  cardinality: has_one
+  to: custom-redirect-v5
+  via: customRedirectId
+- from: visitor-activity-v5
+  field: emailTemplate
+  cardinality: has_one
+  to: email-template-v5
+  via: emailTemplateId
+- from: visitor-activity-v5
+  field: email
+  cardinality: has_one
+  to: email-v5
+  via: emailId
+- from: visitor-activity-v5
+  field: file
+  cardinality: has_one
+  to: file-v5
+  via: fileId
+- from: visitor-activity-v5
+  field: formHandler
+  cardinality: has_one
+  to: form-handler-v5
+  via: formHandlerId
+- from: visitor-activity-v5
+  field: form
+  cardinality: has_one
+  to: form-v5
+  via: formId
+- from: visitor-activity-v5
+  field: landingPage
+  cardinality: has_one
+  to: landing-page-v5
+  via: landingPageId
+- from: visitor-activity-v5
+  field: listEmail
+  cardinality: has_one
+  to: list-email-v5
+  via: listEmailId
+- from: visitor-activity-v5
+  field: opportunity
+  cardinality: has_one
+  to: opportunity-v5
+  via: opportunityId
+- from: visitor-activity-v5
+  field: prospect
+  cardinality: has_one
+  to: prospect-v5
+  via: prospectId
+- from: visitor-activity-v5
+  field: visit
+  cardinality: has_one
+  to: visit-v5
+  via: visitId
+- from: visitor-activity-v5
+  field: visitorPageView
+  cardinality: has_one
+  to: visitor-page-view-v5
+  via: visitorPageViewId
+- from: visitor-activity-v5
+  field: visitor
+  cardinality: has_one
+  to: visitor-v5
+  via: visitorId
+- from: visitor-page-view-v5
+  field: campaign
+  cardinality: has_one
+  to: campaign-v5
+  via: campaignId
+- from: visitor-page-view-v5
+  field: visit
+  cardinality: has_one
+  to: visit-v5
+  via: visitId
+- from: visitor-v5
+  field: prospectId
+  cardinality: has_one
+  to: prospect-v5
+  via: prospectId
+- from: visitor-v5
+  field: campaignId
+  cardinality: has_one
+  to: campaign-v5
+  via: campaignId
+- from: prospect-v5
+  field: createdBy
+  cardinality: has_one
+  to: user-v5
+  via: createdById
+- from: prospect-v5
+  field: updatedBy
+  cardinality: has_one
+  to: user-v5
+  via: updatedById
+- from: prospect-v5
+  field: assignedTo
+  cardinality: has_one
+  to: user-v5
+  via: assignedToId
+- from: prospect-v5
+  field: campaign
+  cardinality: has_one
+  to: campaign-v5
+  via: campaignId
+- from: prospect-v5
+  field: prospectAccount
+  cardinality: has_one
+  to: prospect-account-v5
+  via: prospectAccountId

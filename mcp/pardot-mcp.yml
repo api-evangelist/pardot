@@ -1,0 +1,67 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/pardot-objects-api-openapi.yml + data-model/pardot-data-model.yml
+note: 'No Account Engagement MCP server exists. Salesforce ships an MCP server for Marketing Cloud ENGAGEMENT
+  (the B2C product) — announced GA in June 2026 — and the Salesforce authorization server publishes an `mcp_api`
+  OAuth scope, but neither covers Account Engagement (Pardot) and neither is wired here: crediting this provider
+  with the MCE server would be crediting a different product. What follows is a CANDIDATE tool list derived
+  from the Account Engagement v5 operations Salesforce documents, not a server anyone can call.'
+status: candidate
+deployment:
+  mode: none
+  auth: oauth
+  verified: searched
+  note: Searched the Salesforce developer blog, the Account Engagement docs set and the llms-pardot.txt index;
+    no hosted endpoint and no stdio package for Account Engagement. Nothing to install, nothing to POST to.
+related_but_not_this_product:
+- name: MCP Server for Marketing Cloud Engagement
+  product: Marketing Cloud Engagement (B2C)
+  source: https://developer.salesforce.com/blogs/2026/06/the-mcp-server-for-marketing-cloud-engagement-is-now-ga
+  covers_account_engagement: false
+- name: mcp_api OAuth scope
+  product: Salesforce Platform
+  source: https://login.salesforce.com/.well-known/openid-configuration
+  covers_account_engagement: false
+candidate_auth:
+  type: oauth2
+  scope: pardot_api
+  extra_header: Pardot-Business-Unit-Id
+  see: authentication/pardot-authentication.yml
+candidate_tools:
+- tool: pardot_query_prospects
+  rest: GET /api/v5/objects/prospects
+  consequence: read
+- tool: pardot_read_prospect
+  rest: GET /api/v5/objects/prospects/{id}
+  consequence: read
+- tool: pardot_create_prospect
+  rest: POST /api/v5/objects/prospects
+  consequence: write
+- tool: pardot_update_prospect
+  rest: PATCH /api/v5/objects/prospects/{id}
+  consequence: write
+- tool: pardot_upsert_prospect_by_email
+  rest: POST /api/v5/objects/prospects/do/upsertLatestByEmail
+  consequence: write
+- tool: pardot_delete_prospect
+  rest: DELETE /api/v5/objects/prospects/{id}
+  consequence: destructive
+- tool: pardot_query_campaigns
+  rest: GET /api/v5/objects/campaigns
+  consequence: read
+- tool: pardot_query_lists
+  rest: GET /api/v5/objects/lists
+  consequence: read
+- tool: pardot_add_list_membership
+  rest: POST /api/v5/objects/list-memberships
+  consequence: write
+- tool: pardot_query_visitor_activities
+  rest: GET /api/v5/objects/visitor-activities
+  consequence: read
+- tool: pardot_create_bulk_action
+  rest: POST /api/v5/bulk-actions
+  consequence: destructive
+- tool: pardot_read_bulk_action
+  rest: GET /api/v5/bulk-actions/{id}
+  consequence: read
+candidate_tool_count: 12

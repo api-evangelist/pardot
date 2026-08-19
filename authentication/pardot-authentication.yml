@@ -1,11 +1,21 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/pardot-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: https://developer.salesforce.com/docs/marketing/pardot/guide/authentication.md
+docs: https://developer.salesforce.com/docs/marketing/pardot/guide/authentication.html
+note: 'Account Engagement has no authentication of its own — it delegates entirely to Salesforce OAuth 2.0.
+  Two things must be true before any call works: the connected app must carry the pardot_api scope, and the
+  authenticating user must be SSO-enabled (able to reach pi.pardot.com via "Log In with Salesforce" or the
+  Account Engagement Lightning App). A bearer token alone is not sufficient: every request also needs the Pardot-Business-Unit-Id
+  header, an 18-character ID beginning "0Uv" that a Salesforce admin reads from Setup > Business Unit Setup.
+  The legacy api_key/user_key login is retired.'
 summary:
   types:
   - oauth2
   oauth2_flows:
   - authorizationCode
+  required_headers:
+  - Authorization
+  - Pardot-Business-Unit-Id
 schemes:
 - name: BearerAuth
   type: oauth2
@@ -13,10 +23,56 @@ schemes:
   - flow: authorizationCode
     authorizationUrl: https://login.salesforce.com/services/oauth2/authorize
     tokenUrl: https://login.salesforce.com/services/oauth2/token
-    scopes: 1
-  description: |-
-    Authenticate via Salesforce OAuth2 and pass the resulting access
-    token as `Authorization: Bearer {token}`. The `Pardot-Business-Unit-Id`
-    header is also required on every request.
+    revocationUrl: https://login.salesforce.com/services/oauth2/revoke
+    introspectionUrl: https://login.salesforce.com/services/oauth2/introspect
+    registrationUrl: https://login.salesforce.com/services/oauth2/register
+    jwksUri: https://login.salesforce.com/id/keys
+    userinfoUrl: https://login.salesforce.com/services/oauth2/userinfo
+    scopes:
+    - pardot_api
+    - refresh_token
+    - offline_access
+    source: https://login.salesforce.com/.well-known/openid-configuration
+  description: 'Obtain a Salesforce OAuth 2.0 access token, then send it as `Authorization: Bearer <access_token>`
+    together with `Pardot-Business-Unit-Id: <18-char business unit id>`. The Web Server (authorization code)
+    flow is the documented default; Salesforce supports the full OAuth 2.0 flow set, and the authorization
+    server additionally advertises DPoP signing algorithms and dynamic client registration.'
   sources:
-  - openapi/pardot-openapi.yml
+  - https://developer.salesforce.com/docs/marketing/pardot/guide/authentication.md
+  - https://login.salesforce.com/.well-known/openid-configuration
+required_headers:
+- name: Authorization
+  value: Bearer <access_token>
+  required: true
+- name: Pardot-Business-Unit-Id
+  value: <18-character Account Engagement Business Unit ID, begins 0Uv>
+  required: true
+  note: Found in Salesforce Setup under "Business Unit Setup". Without it the call fails even with a valid
+    token.
+hosts_by_account_type:
+- account_type: Production
+  salesforce_domain: login.salesforce.com
+  api_domain: pi.pardot.com
+- account_type: Account Engagement Developer Org
+  salesforce_domain: login.salesforce.com
+  api_domain: pi.demo.pardot.com
+- account_type: Sandbox
+  salesforce_domain: test.salesforce.com
+  api_domain: pi.demo.pardot.com
+prerequisites:
+- A Salesforce connected app configured for OAuth with the "pardot_api" scope selected.
+- The Account Engagement Business Unit ID (18 characters, begins with "0Uv").
+- An SSO-enabled Salesforce user who can log in to pi.pardot.com with "Log In with Salesforce".
+caveats:
+- issue: Login IP ranges are not enforced
+  detail: The Account Engagement API does not enforce IP address restrictions configured with the Salesforce
+    "Enforce login IP ranges on every request" option. A token that works from one network works from any.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/authentication.md
+- issue: Retired credentials
+  detail: The v3-era api_key / user_key login flow (still described by the legacy WADL in schemas/) is retired;
+    OAuth is the only supported path.
+  source: schemas/pardot-schemas.yml
+oidc_discovery:
+  url: https://login.salesforce.com/.well-known/openid-configuration
+  http_status: 200
+  file: well-known/pardot-openid-configuration.json

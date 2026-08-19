@@ -1,21 +1,82 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/pardot-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: https://developer.salesforce.com/docs/marketing/pardot/guide/authentication.md
+docs: https://help.salesforce.com/s/articleView?id=sf.remoteaccess_oauth_tokens_scopes.htm&type=5
+note: 'Account Engagement exposes exactly ONE product scope: pardot_api. It is not a granular permission model
+  — the scope grants access to the API, and what a caller may actually do is decided by the Account Engagement
+  user role abilities on the authenticating user (each object reference page names the ability required per
+  operation, e.g. "Prospect > Prospects > Create"). The scope list below is the live scopes_supported array
+  from the Salesforce authorization server, which is the authoritative source; the entries after pardot_api
+  are Salesforce-platform scopes commonly paired with it, not Account Engagement scopes.'
+authorization_server: https://login.salesforce.com
+discovery: https://login.salesforce.com/.well-known/openid-configuration
 schemes:
 - name: BearerAuth
-  source: openapi/pardot-openapi.yml
   flows:
   - flow: authorizationCode
     authorizationUrl: https://login.salesforce.com/services/oauth2/authorize
     tokenUrl: https://login.salesforce.com/services/oauth2/token
-  description: |-
-    Authenticate via Salesforce OAuth2 and pass the resulting access
-    token as `Authorization: Bearer {token}`. The `Pardot-Business-Unit-Id`
-    header is also required on every request.
+scope_count: 1
 scopes:
 - scope: pardot_api
-  description: Access the Pardot/Account Engagement API
+  description: Access the Marketing Cloud Account Engagement (Pardot) API. Required on the connected app or
+    no OAuth flow other than username/password can be used with the Account Engagement API.
   flows:
   - authorizationCode
+  product: Account Engagement
   sources:
-  - openapi/pardot-openapi.yml
+  - https://developer.salesforce.com/docs/marketing/pardot/guide/authentication.md
+  - https://login.salesforce.com/.well-known/openid-configuration
+companion_platform_scopes:
+- scope: refresh_token
+  description: Issue a refresh token so the integration can renew access without re-consent.
+- scope: offline_access
+  description: Equivalent to refresh_token; keeps the grant alive between sessions.
+- scope: api
+  description: Salesforce Platform API access — needed when the same connected app also calls Salesforce REST/SOAP
+    objects for Account Engagement development.
+- scope: openid
+  description: OpenID Connect sign-in; returns an id_token.
+authorization_model:
+  style: coarse scope + per-object role abilities
+  note: Object reference pages publish the required ability per operation (for example Prospect Create requires
+    "Prospect > Prospects > Create", and reading prospects not assigned to the API user requires "Prospects
+    > Prospects > View prospects not assigned to self").
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/prospect-v5.md
+all_authorization_server_scopes:
+- address
+- api
+- cdp_api
+- cdp_calculated_insight_api
+- cdp_identityresolution_api
+- cdp_ingest_api
+- cdp_profile_api
+- cdp_query_api
+- cdp_segment_api
+- chatbot_api
+- chatter_api
+- content
+- custom_permissions
+- data_cloud_user_claims
+- eclair_api
+- einstein_gpt_api
+- email
+- forgot_password
+- full
+- id
+- interaction_api
+- lightning
+- mcp_api
+- offline_access
+- openid
+- pardot_api
+- phone
+- profile
+- pwdless_login_api
+- refresh_token
+- scrt_api
+- sfap_api
+- user_registration_api
+- visualforce
+- wave_api
+- web

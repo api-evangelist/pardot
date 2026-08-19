@@ -1,0 +1,71 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.md
+note: 'The Account Engagement API overview lists three "Open Source API Wrappers" and states plainly that they
+  "aren''t officially supported". Only ruby-pardot lives in the vendor''s own GitHub organization (github.com/pardot,
+  a Salesforce org); the Python and Java clients are community repos the vendor merely links to. That distinction
+  is recorded per entry: `official` means published by the provider, `vendor_supported` means the provider
+  stands behind it. There is no first-party JavaScript, Go, PHP or .NET client for this API at all.'
+package_count: 4
+official_count: 1
+packages:
+- language: ruby
+  name: ruby-pardot
+  registry: rubygems
+  url: https://rubygems.org/gems/ruby-pardot
+  repository: https://github.com/pardot/ruby-pardot
+  version: 1.4.4
+  published: '2026-01-15'
+  official: true
+  vendor_supported: false
+  note: Published in the provider's own GitHub organization (github.com/pardot) and linked from the official
+    API overview, but the docs explicitly say the wrappers are not officially supported. Actively released
+    — 1.4.4 shipped 2026-01-15, well after API v5, so this is the one Account Engagement client that is not
+    decayed.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.md
+- language: python
+  name: PyPardot4
+  registry: pypi
+  url: https://pypi.org/project/PyPardot4/
+  repository: https://github.com/mneedham91/PyPardot4
+  version: 1.1.14
+  published: '2019-02-20'
+  official: false
+  vendor_supported: false
+  note: Community-maintained and linked from the official docs as a wrapper for API v4 only. Last release 2019-02-20
+    — it predates the v5 surface entirely and does not cover it.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.md
+- language: java
+  name: pardot-java-client
+  registry: maven
+  url: https://github.com/Crim/pardot-java-client
+  repository: https://github.com/Crim/pardot-java-client
+  version: null
+  published: null
+  official: false
+  vendor_supported: false
+  note: Community client linked from the official docs. No coordinates for the artifact were resolvable from
+    search.maven.org under the artifactId pardot-java-client, so the published version could not be read from
+    a registry — checked, nothing to record.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.md
+- language: javascript
+  name: pdt.js (Tracking and Consent tracker)
+  registry: cdn
+  url: https://<your-tracker-domain>/pdt.js
+  version: null
+  published: null
+  official: true
+  vendor_supported: true
+  note: Browser tracker for the Tracking and Consent JavaScript API, loaded from the customer's own Account
+    Engagement tracker domain with an unpinned path (//<piDomain>/pdt.js). There is no version in the URL and
+    no registry entry, so neither we nor a consumer can tell which build they are getting — the distribution
+    floats to latest. See components/pardot-components.yml.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/tracking-and-consent-getting-started.md
+collections:
+- kind: postman
+  name: Account Engagement API v5 Postman collection
+  repository: https://github.com/pardot/postman-pardot-apis
+  official: true
+  note: Public Postman collection for v5, published in the vendor GitHub org and linked from the docs "Additional
+    Resources" page. Issues are routed to github.com/forcedotcom/postman-pardot-apis.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/other-resources.md

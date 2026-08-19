@@ -1,0 +1,69 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.salesforce.com/docs/marketing/pardot/guide/authentication.md
+note: Standards conformance asserted from the provider's own documentation and from the live OpenID Provider
+  Configuration served by the Salesforce authorization server that fronts this API. Compliance certifications
+  are held at the Salesforce corporate level and are enumerated in security/pardot-trust-center.yml.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: The Account Engagement API delegates authentication to Salesforce OAuth 2.0; the pardot_api
+    scope must be on the connected app. Web Server (authorization code) flow is the documented default
+    and Salesforce documents the full OAuth 2.0 flow set.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/authentication.md
+- id: oidc
+  conforms: true
+  evidence: https://login.salesforce.com/.well-known/openid-configuration returns HTTP 200 with a complete
+    OpenID Provider Configuration (issuer, authorization/token/userinfo/revocation/introspection endpoints,
+    jwks_uri, registration_endpoint, dpop_signing_alg_values_supported, 36 scopes including pardot_api).
+  source: https://login.salesforce.com/.well-known/openid-configuration
+- id: rfc7591-dynamic-client-registration
+  conforms: true
+  evidence: registration_endpoint is advertised in the OpenID Provider Configuration.
+  source: https://login.salesforce.com/.well-known/openid-configuration
+- id: rfc9449-dpop
+  conforms: true
+  evidence: dpop_signing_alg_values_supported is present in the OpenID Provider Configuration.
+  source: https://login.salesforce.com/.well-known/openid-configuration
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: 'Errors are a vendor JSON envelope {"code": n, "message": "..."} with no type/title/detail/instance
+    and no application/problem+json media type.'
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation response headers are documented; deprecation is communicated in prose
+    migration guides only.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/transitioning-v5.md
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on pi.pardot.com, pi.demo.pardot.com, developer.salesforce.com,
+    www.salesforce.com and trust.salesforce.com.
+  source: well-known/pardot-well-known.yml
+- id: ratelimit-headers
+  conforms: false
+  evidence: No RateLimit-* or X-RateLimit-* headers and no Retry-After. Usage is exposed only through
+    the opt-in x-api-usage header, and exhaustion through body error codes 122 and 66.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+- id: conditional-requests-rfc7232
+  conforms: true
+  evidence: Read operations accept If-Modified-Since (RFC 7231 date-time) and return Last-Modified plus
+    304 Not Modified.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+- id: pagination
+  conforms: true
+  evidence: Opaque cursor pagination via nextPageToken/nextPageUrl with a documented 4-hour token TTL,
+    100,000-record sequence ceiling and a deprecated offset fallback.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+- id: idempotency
+  conforms: false
+  evidence: No idempotency-key header or replay window is published; only prospect upsertLatestByEmail
+    provides an upsert semantic.
+  source: conventions/pardot-conventions.yml
+- id: gdpr
+  conforms: true
+  evidence: Salesforce publishes a GDPR compliance category and Binding Corporate Rules on compliance.salesforce.com;
+    Account Engagement additionally ships a Tracking and Consent JavaScript API with an opt-in cookie
+    (pi_opt_in) and consent banner for visitor tracking.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/tracking-and-consent-overview.md
+certifications_see: security/pardot-trust-center.yml

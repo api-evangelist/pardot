@@ -1,0 +1,42 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.md
+note: Account Engagement separates test from production by HOST, not by key prefix or a test-mode flag. There
+  are no test cards, magic identifiers, fixtures or time-simulation tools — a non-production business unit
+  is a real business unit on a different domain, and the OAuth authorization host changes with it. Developer
+  Edition orgs are the free path in; Developer Sandboxes for Account Engagement are a paid entitlement (2 on
+  Advanced+, 5 on Premium+, an add-on below that).
+model: separate-host
+test_values_published: false
+environments:
+- name: Production
+  api_host: https://pi.pardot.com
+  oauth_host: https://login.salesforce.com
+  package_namespace: b2bma
+- name: Account Engagement Developer Org / Demo
+  api_host: https://pi.demo.pardot.com
+  oauth_host: https://login.salesforce.com
+  package_namespace: pi3
+- name: Sandbox
+  api_host: https://pi.demo.pardot.com
+  oauth_host: https://test.salesforce.com
+  package_namespace: pi3
+how_to_identify: 'From Salesforce Setup > Installed Packages, find the b2bmaIntegration package: namespace
+  prefix "b2bma" means use pi.pardot.com; "pi3" means use pi.demo.pardot.com.'
+entitlements:
+- name: Developer Sandboxes for Account Engagement
+  growth: add-on
+  plus: add-on
+  advanced: 2 included
+  premium: 5 included
+  source: plans/pardot-plans-pricing.yml
+free_trial: https://www.salesforce.com/form/signup/freetrial-b2bma/
+test_clocks: false
+fixtures: false
+hosted_console: false
+exploration_tooling:
+- name: Account Engagement API v5 Postman collection
+  url: https://github.com/pardot/postman-pardot-apis
+  note: 'The nearest thing to a console: a forkable public Postman collection with environment templates for
+    token and business-unit handling.'
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/other-resources.md

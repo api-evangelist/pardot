@@ -1,0 +1,38 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/pardot/api-schemas
+note: 'Salesforce publishes a small set of first-party machine-readable descriptions for the LEGACY Account
+  Engagement API in its own GitHub organization: an Apigee-flavoured WADL for API v3 and XML Schema definitions
+  for four objects. They are historically real and worth keeping, but they are NOT a current contract: the
+  WADL describes the retired api_key/user_key login flow and the v3 action-verb URL grammar, and its documentation
+  links point at developer.pardot.com, a domain Salesforce retired in favour of developer.salesforce.com. Nothing
+  here was converted into an OpenAPI — deriving a live spec from a retired auth model would teach an agent
+  to call the API the wrong way.'
+current: false
+applies_to: Account Engagement API v3 (legacy)
+files:
+- file: schemas/pardot-v3-wadl.xml
+  format: WADL 2009/02 (Apigee extensions)
+  resources: 23
+  methods: 23
+  source: https://raw.githubusercontent.com/pardot/api-schemas/master/pardot-wadl.xml
+  base: https://pi.pardot.com/api/
+- file: schemas/pardot-common.xsd
+  format: XML Schema
+  source: https://raw.githubusercontent.com/pardot/api-schemas/master/common.xsd
+- file: schemas/pardot-prospects.xsd
+  format: XML Schema
+  source: https://raw.githubusercontent.com/pardot/api-schemas/master/prospects.xsd
+- file: schemas/pardot-opportunities.xsd
+  format: XML Schema
+  source: https://raw.githubusercontent.com/pardot/api-schemas/master/opportunities.xsd
+- file: schemas/pardot-users.xsd
+  format: XML Schema
+  source: https://raw.githubusercontent.com/pardot/api-schemas/master/users.xsd
+- file: schemas/pardot-visitors.xsd
+  format: XML Schema
+  source: https://raw.githubusercontent.com/pardot/api-schemas/master/visitors.xsd
+no_openapi_published: true
+no_openapi_note: Probed /openapi.json, /openapi.yaml, /swagger.json and /api-docs on pi.pardot.com, pi.demo.pardot.com,
+  developer.salesforce.com and www.salesforce.com — all 404. Salesforce publishes no OpenAPI for Account Engagement;
+  the current contract is prose + markdown reference pages indexed by developer.salesforce.com/docs/llms-pardot.txt.

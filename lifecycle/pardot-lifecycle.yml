@@ -1,0 +1,61 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.md
+note: Account Engagement versions its API in the path and has run three concurrent major versions for
+  years. Salesforce publishes a migration guide from v3/v4 to v5 and states v5 is preferred, but it publishes
+  no dated sunset for v3/v4, no Deprecation/Sunset response headers (RFC 8594), and no API-specific SLA.
+  The one hard deprecation the docs DO state is the `offset` query parameter.
+versioning:
+  style: path
+  current: v5
+  supported:
+  - v3
+  - v4
+  - v5
+  preferred: v5
+  policy_url: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
+deprecation:
+  policy_published: true
+  policy_url: https://developer.salesforce.com/docs/marketing/pardot/guide/transitioning-v5.html
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: A "Transitioning to V5" migration guide is published and names every breaking difference (request-path
+    grammar, prospect create/read/update/delete by id vs email, visitor assign by prospectId). No end-of-life
+    date is published for v3 or v4.
+  deprecated_items:
+  - item: '`offset` query parameter (v5)'
+    status: deprecated
+    replacement: nextPageToken cursor pagination, or the Export API beyond 2,000 records
+    source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+  - item: API v3 / v4 object endpoints
+    status: superseded
+    replacement: API v5 /api/v5/objects/*
+    sunset_date: null
+    source: https://developer.salesforce.com/docs/marketing/pardot/guide/transitioning-v5.md
+  - item: api_key / user_key authentication
+    status: retired
+    replacement: Salesforce OAuth 2.0 with the pardot_api scope
+    source: https://developer.salesforce.com/docs/marketing/pardot/guide/authentication.md
+status_page:
+  published: true
+  url: https://status.salesforce.com/
+  http_status: 200
+  note: Salesforce Trust status covers all instances; Account Engagement business units are tracked by
+    their Salesforce instance.
+release_notes:
+  published: true
+  url: https://help.salesforce.com/s/articleView?id=release-notes.rn_pardot.htm&type=5
+  http_status: 200
+  machine_readable: false
+  note: Account Engagement release notes ship on the Salesforce Help Lightning community, which renders
+    entirely client-side — a raw fetch returns the app shell and a "CSS Error" placeholder, so the dated
+    entries could not be captured. No changelog/ artifact is emitted rather than fabricate one.
+sla:
+  published: false
+  note: No API-specific uptime SLA is published in the developer documentation; availability commitments
+    sit in the Salesforce master subscription agreement rather than an API SLA page.
+support:
+  url: https://help.salesforce.com/articleView?id=000181929&type=1
+  note: The API overview directs developers to open a Support ticket for API questions and documentation
+    issues.

@@ -1,0 +1,140 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+docs: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+note: Cross-cutting runtime semantics for Account Engagement API v5, read from the provider's own Version
+  5 overview. v3/v4 use a different, action-verb URL grammar and an XML/JSON envelope; they are summarised
+  at the bottom.
+auth:
+  style: oauth2-bearer
+  header: 'Authorization: Bearer <access_token>'
+  additional_required_header: Pardot-Business-Unit-Id
+  note: Every request needs BOTH the Salesforce OAuth bearer token and the 18-character Account Engagement
+    Business Unit ID (begins with 0Uv). IP-range enforcement configured in Salesforce is explicitly NOT
+    applied to Account Engagement API calls.
+  see: authentication/pardot-authentication.yml
+idempotency:
+  supported: false
+  idempotency_key_header: null
+  note: Account Engagement publishes no idempotency-key header and no request-replay window. The only
+    idempotent write primitive is the prospect upsertLatestByEmail operation, which matches the most recently
+    updated prospect by email and creates one if none exists — an upsert semantic, not a client-supplied
+    idempotency key. Retrying a POST /objects/{collection} creates a duplicate record (and does so unconditionally
+    when AMPSEA is enabled).
+  upsert_operations:
+  - POST /api/v5/objects/prospects/do/upsertLatestByEmail
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/transitioning-v5.md
+pagination:
+  style: cursor
+  request_params:
+  - limit
+  - offset
+  - orderBy
+  - fields
+  cursor_param: nextPageToken
+  response_fields:
+  - values
+  - nextPageToken
+  - nextPageUrl
+  default_page_size: 200
+  max_page_size: 1000
+  token_ttl: 4 hours
+  max_records_per_token_sequence: 100000
+  offset_deprecated: true
+  max_offset: 2000
+  note: 'When a page token is sent, only `fields` may accompany it — orderBy, offset, limit and any filter
+    return 400 BAD_REQUEST. Reusing a token returns the same result set if the data has not changed. Exceeding
+    100,000 records stops token generation and returns Pardot-Warning: 203.'
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+field_selection:
+  supported: true
+  param: fields
+  required: true
+  style: comma-delimited allow-list with dot notation for related objects
+  relationship_depth: 3
+  note: '`fields` is REQUIRED on every query and read — there is no default representation. Relationship
+    fields are traversed with dot notation (campaign.folder.parentFolder.name) up to three object tracks,
+    and a traversal costs one API call, not one per object. Collections may be selected by name but are
+    not supported on query operations and cannot be nested.'
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+conditional_requests:
+  supported: true
+  request_header: If-Modified-Since (RFC 7231 date-time)
+  response_header: Last-Modified
+  not_modified_status: 304
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+request_id_tracing:
+  supported: false
+  note: No request-id/correlation-id header is documented on either request or response.
+versioning:
+  style: path
+  current: v5
+  path_prefix: /api/v5
+  supported:
+  - v3
+  - v4
+  - v5
+  note: v5 is the preferred version. v3 is for business units WITHOUT Allow Multiple Prospects with the
+    Same Email Address (AMPSEA); v4 is the AMPSEA variant of the same surface. v5 works with both. v3/v4
+    keep an action-verb grammar (/api/<object>/version/<n>/do/<op>) that v5 replaces with REST resources
+    (/api/v5/objects/<collection>/<id>).
+  see: lifecycle/pardot-lifecycle.yml
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.md
+error_envelope:
+  format: vendor-json
+  shape: '{"code": <error_code>, "message": "<error_message>"}'
+  rfc9457: false
+  note: A numeric code registry of 208 published codes shared across v3/v4/v5; the HTTP status is coarse
+    (400/404/405) and the body code carries the meaning.
+  see: errors/pardot-error-codes.yml
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+rate_limit_signaling:
+  style: opt-in response header + body error code
+  request_header: X-Return-Api-Usage
+  response_header: x-api-usage
+  standard_headers: false
+  retry_after: false
+  exhaustion_error_codes:
+  - '122'
+  - '66'
+  see: rate-limits/pardot-rate-limits.yml
+warnings:
+  header: Pardot-Warning
+  values:
+  - value: 201;Record In Recycle Bin
+    meaning: The call failed because the object is deleted and sits in the recycle bin.
+  - value: 202;Record(s) have been redacted from output due to access rules
+    meaning: Values omitted because the caller lacks access rights.
+  - value: 203;Record count for nextPageToken sequence has been exceeded. No page token returned.
+    meaning: The 100,000-record pagination ceiling was reached.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+consistency:
+  model: read-your-writes NOT guaranteed
+  note: v5 reads are served from a cache that may trail the primary dataset by up to 60 seconds; if the
+    cache is more than 60 seconds behind, calls fall through to primary. An immediate read-after-write
+    can therefore return stale data. Agents that write then verify must tolerate this window.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+http_semantics:
+  verbs:
+    GET: read or query
+    POST: create
+    PATCH: update (omitted fields unchanged)
+    DELETE: delete or move to recycle bin
+  create_status: 201
+  create_location_header: true
+  no_content_cases:
+  - 204 on create when the caller cannot read the record
+  - 204 on update when no fields were requested or are readable
+  - 204 on delete
+  content_type: application/json (multipart/form-data with `input` and `file` parts when a file is attached)
+  datetime_format: ISO 8601 YYYY-MM-DDTHH:MM:SS±HH:MM (positive offsets must be URL-encoded, e.g. %2b05:00)
+  soft_delete: Some object types move to an Account Engagement recycle bin; `deleted` query param selects
+    all/true/false.
+  source: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.md
+cross_links:
+  errors: errors/pardot-error-codes.yml
+  lifecycle: lifecycle/pardot-lifecycle.yml
+  authentication: authentication/pardot-authentication.yml
+  rate_limits: rate-limits/pardot-rate-limits.yml
+  scopes: scopes/pardot-scopes.yml
+  data_model: data-model/pardot-data-model.yml
