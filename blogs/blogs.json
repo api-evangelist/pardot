@@ -1,0 +1,14 @@
+{
+  "repo": "pardot",
+  "feeds": [
+    {
+      "source": "https://help.salesforce.com/s/articleView?id=sf.bundle_pardot_parent.htm&type=5",
+      "feed_url": "https://help.salesforce.com/s/articleView?id=sf.bundle_pardot_parent.htm&type=5",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-08-22T20:20:02Z"
+}

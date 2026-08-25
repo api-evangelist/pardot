@@ -1,14 +1,11 @@
 aid: pardot
 name: Salesforce Marketing Cloud Account Engagement (Pardot)
-description: >-
-  Salesforce Marketing Cloud Account Engagement, formerly known as Pardot, is
-  a B2B marketing automation platform tightly integrated with Salesforce CRM
-  for lead generation, lead nurturing, email marketing, and marketing ROI
-  reporting. The platform provides campaigns, forms, landing pages, dynamic
-  content, lead scoring/grading, and Engagement Studio for multi-step nurture
-  programs. Version 5 of the Account Engagement REST API uses Salesforce
-  OAuth 2.0 authentication and requires a Business Unit ID header, with hosts
-  at pi.pardot.com (production) and pi.demo.pardot.com (sandbox).
+description: Salesforce Marketing Cloud Account Engagement, formerly known as Pardot, is a B2B marketing automation
+  platform tightly integrated with Salesforce CRM for lead generation, lead nurturing, email marketing, and marketing
+  ROI reporting. The platform provides campaigns, forms, landing pages, dynamic content, lead scoring/grading, and
+  Engagement Studio for multi-step nurture programs. Version 5 of the Account Engagement REST API uses Salesforce
+  OAuth 2.0 authentication and requires a Business Unit ID header, with hosts at pi.pardot.com (production) and
+  pi.demo.pardot.com (sandbox).
 type: Index
 accessModel:
   pricing: paid
@@ -18,12 +15,9 @@ accessModel:
   public: false
   label: Sales-assisted, with published list pricing
   confidence: high
-  note: >-
-    Salesforce publishes list prices for all four Account Engagement editions
-    ($1,250 / $2,750 / $4,400 / $15,000 USD per org per month) but every tier
-    ends in a "Contact us" call to action and all per-month products require an
-    annual contract. There is no self-serve checkout and no free tier; a free
-    trial form is published.
+  note: Salesforce publishes list prices for all four Account Engagement editions ($1,250 / $2,750 / $4,400 / $15,000
+    USD per org per month) but every tier ends in a "Contact us" call to action and all per-month products require
+    an annual contract. There is no self-serve checkout and no free tier; a free trial form is published.
   source:
   - plans/pardot-plans-pricing.yml
   - https://www.salesforce.com/marketing/b2b-automation/pricing/
@@ -31,24 +25,22 @@ accessModel:
   method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pardot.png
 tags:
-  - Marketing Automation
-  - B2B Marketing
-  - Lead Generation
-  - Email Marketing
-  - Salesforce
-  - Account Engagement
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/pardot/refs/heads/main/apis.yml
+- Marketing Automation
+- B2B Marketing
+- Lead Generation
+- Email Marketing
+- Salesforce
+- Account Engagement
+url: https://raw.githubusercontent.com/api-evangelist/pardot/refs/heads/main/apis.yml
 created: '2026-05-11'
-modified: '2026-08-13'
+modified: '2026-08-21'
 specificationVersion: '0.23'
 apis:
 - aid: pardot:account-engagement-api-v5
   name: Account Engagement API v5
-  description: >-
-    Version 5 REST API for managing prospects, accounts, campaigns, emails, forms, lists, and engagement
-    programs in Marketing Cloud Account Engagement. Authentication uses Salesforce OAuth 2.0 with the
-    pardot_api scope and the Pardot-Business-Unit-Id header.
+  description: Version 5 REST API for managing prospects, accounts, campaigns, emails, forms, lists, and engagement
+    programs in Marketing Cloud Account Engagement. Authentication uses Salesforce OAuth 2.0 with the pardot_api
+    scope and the Pardot-Business-Unit-Id header.
   humanURL: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
   baseURL: https://pi.pardot.com/api/v5
   tags:
@@ -65,8 +57,7 @@ apis:
     url: https://developer.salesforce.com/docs/marketing/pardot/guide/getting-started.html
 - aid: pardot:account-engagement-api-v4
   name: Account Engagement API v3/v4 (Legacy)
-  description: >-
-    Legacy v3/v4 REST API endpoints for Pardot resources. Still supported for many objects not yet migrated
+  description: Legacy v3/v4 REST API endpoints for Pardot resources. Still supported for many objects not yet migrated
     to v5; uses the same Salesforce OAuth 2.0 authentication scheme.
   humanURL: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
   baseURL: https://pi.pardot.com/api
@@ -83,8 +74,7 @@ apis:
     url: schemas/pardot-schemas.yml
 - aid: pardot:pardot-objects-api
   name: Salesforce Marketing Cloud Account Engagement (Pardot) Objects API
-  description: >-
-    The Objects API from Salesforce Marketing Cloud Account Engagement (Pardot) — 24 operation(s) for
+  description: The Objects API from Salesforce Marketing Cloud Account Engagement (Pardot) — 24 operation(s) for
     objects.
   humanURL: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
   baseURL: https://pi.pardot.com/api/v5
@@ -96,117 +86,115 @@ apis:
   - type: Overlay
     url: overlays/pardot-objects-api-overlay.yaml
 common:
-  - type: AgenticAccess
-    url: agentic-access/pardot-agentic-access.yml
-  - type: VulnerabilityDisclosure
-    url: security/pardot-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/pardot-domain-security.yml
-  - type: Authentication
-    url: authentication/pardot-authentication.yml
-  - type: OAuthScopes
-    url: scopes/pardot-scopes.yml
-  - type: GitHubOrganization
-    url: https://github.com/pardot
-  - type: Website
-    url: https://www.salesforce.com/marketing/b2b-automation/
-  - type: Documentation
-    url: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
-  - type: Pricing
-    url: https://www.salesforce.com/marketing/b2b-automation/pricing/
-  - type: SignUp
-    url: https://www.salesforce.com/form/signup/freetrial-b2bma/
-  - type: Security
-    url: security/pardot-vulnerability-disclosure.yml
-  - type: TrustCenter
-    url: security/pardot-trust-center.yml
-  - type: Compliance
-    url: security/pardot-trust-center.yml
-  - type: Conformance
-    url: conformance/pardot-conformance.yml
-  - type: Conventions
-    url: conventions/pardot-conventions.yml
-  - type: ErrorCatalog
-    url: errors/pardot-error-codes.yml
-  - type: Lifecycle
-    url: lifecycle/pardot-lifecycle.yml
-  - type: StatusPage
-    url: https://status.salesforce.com/
-  - type: Deprecation
-    url: https://developer.salesforce.com/docs/marketing/pardot/guide/transitioning-v5.html
-  - type: RateLimits
-    url: rate-limits/pardot-rate-limits.yml
-  - type: Plans
-    url: plans/pardot-plans-pricing.yml
-  - type: DataModel
-    url: data-model/pardot-data-model.yml
-  - type: Packages
-    url: packages/pardot-packages.yml
-  - type: SDKs
-    url: packages/pardot-packages.yml
-  - type: Sandbox
-    url: sandbox/pardot-sandbox.yml
-  - type: Components
-    url: components/pardot-components.yml
-  - type: MCPServer
-    url: mcp/pardot-mcp.yml
-  - type: LLMsTxt
-    url: llms/pardot-llms.txt
-  - type: WellKnown
-    url: well-known/pardot-well-known.yml
-  - type: AgentSkill
-    url: skills/_index.yml
-  - type: XMLSchema
-    url: schemas/pardot-schemas.yml
-  - type: Postman
-    url: https://github.com/pardot/postman-pardot-apis
-  - type: DeveloperPortal
-    url: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
-  - type: APIReference
-    url: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
-  - type: GettingStarted
-    url: https://developer.salesforce.com/docs/marketing/pardot/guide/getting-started.html
-  - type: Support
-    url: https://help.salesforce.com/s/articleView?id=sf.bundle_pardot_parent.htm&type=5
-  - type: Blog
-    url: https://developer.salesforce.com/blogs/
-  - type: TermsOfService
-    url: https://www.salesforce.com/company/legal/sfdc-website-terms-of-service/
-  - type: PrivacyPolicy
-    url: https://www.salesforce.com/company/privacy/
-  - type: SourceCode
-    url: https://github.com/pardot/api-schemas
+- type: ParentCompany
+  url: https://apis.io/providers/salesforce/
+  name: Salesforce
+  x-relationship: acquisition
+  x-generated-by: salesforce-family:2026-08-21
+- type: AgenticAccess
+  url: agentic-access/pardot-agentic-access.yml
+- type: VulnerabilityDisclosure
+  url: security/pardot-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/pardot-domain-security.yml
+- type: Authentication
+  url: authentication/pardot-authentication.yml
+- type: OAuthScopes
+  url: scopes/pardot-scopes.yml
+- type: GitHubOrganization
+  url: https://github.com/pardot
+- type: Website
+  url: https://www.salesforce.com/marketing/b2b-automation/
+- type: Documentation
+  url: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
+- type: Pricing
+  url: https://www.salesforce.com/marketing/b2b-automation/pricing/
+- type: SignUp
+  url: https://www.salesforce.com/form/signup/freetrial-b2bma/
+- type: Security
+  url: security/pardot-vulnerability-disclosure.yml
+- type: TrustCenter
+  url: security/pardot-trust-center.yml
+- type: Compliance
+  url: security/pardot-trust-center.yml
+- type: Conformance
+  url: conformance/pardot-conformance.yml
+- type: Conventions
+  url: conventions/pardot-conventions.yml
+- type: ErrorCatalog
+  url: errors/pardot-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/pardot-lifecycle.yml
+- type: StatusPage
+  url: https://status.salesforce.com/
+- type: Deprecation
+  url: https://developer.salesforce.com/docs/marketing/pardot/guide/transitioning-v5.html
+- type: RateLimits
+  url: rate-limits/pardot-rate-limits.yml
+- type: Plans
+  url: plans/pardot-plans-pricing.yml
+- type: DataModel
+  url: data-model/pardot-data-model.yml
+- type: Packages
+  url: packages/pardot-packages.yml
+- type: SDKs
+  url: packages/pardot-packages.yml
+- type: Sandbox
+  url: sandbox/pardot-sandbox.yml
+- type: Components
+  url: components/pardot-components.yml
+- type: MCPServer
+  url: mcp/pardot-mcp.yml
+- type: LLMsTxt
+  url: llms/pardot-llms.txt
+- type: WellKnown
+  url: well-known/pardot-well-known.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: XMLSchema
+  url: schemas/pardot-schemas.yml
+- type: Postman
+  url: https://github.com/pardot/postman-pardot-apis
+- type: DeveloperPortal
+  url: https://developer.salesforce.com/docs/marketing/pardot/guide/overview.html
+- type: APIReference
+  url: https://developer.salesforce.com/docs/marketing/pardot/guide/version5overview.html
+- type: GettingStarted
+  url: https://developer.salesforce.com/docs/marketing/pardot/guide/getting-started.html
+- type: Support
+  url: https://help.salesforce.com/s/articleView?id=sf.bundle_pardot_parent.htm&type=5
+- type: Blog
+  url: https://developer.salesforce.com/blogs/
+- type: TermsOfService
+  url: https://www.salesforce.com/company/legal/sfdc-website-terms-of-service/
+- type: PrivacyPolicy
+  url: https://www.salesforce.com/company/privacy/
+- type: SourceCode
+  url: https://github.com/pardot/api-schemas
 features:
-  - name: Lead Scoring and Grading
-    description: >-
-      Quantitative scoring of prospect engagement combined with qualitative
-      grading of fit against an ideal customer profile.
-  - name: Engagement Studio
-    description: >-
-      Visual builder for multi-step, branching nurture programs that respond
-      to prospect behavior over time.
-  - name: Forms and Landing Pages
-    description: >-
-      Capture leads via Pardot-hosted forms, form handlers, and landing
-      pages that feed Salesforce campaigns.
-  - name: Email Marketing
-    description: >-
-      Send list, automated, and one-to-one emails with dynamic content,
-      A/B testing, and engagement metrics.
-  - name: Salesforce CRM Integration
-    description: >-
-      Bi-directional sync with Salesforce Sales Cloud for unified lead and
-      opportunity data, campaign influence reporting, and ROI analysis.
-  - name: B2B Marketing Analytics
-    description: >-
-      Pre-built CRM Analytics dashboards for pipeline contribution,
-      account engagement, and marketing ROI measurement.
+- name: Lead Scoring and Grading
+  description: Quantitative scoring of prospect engagement combined with qualitative grading of fit against an ideal
+    customer profile.
+- name: Engagement Studio
+  description: Visual builder for multi-step, branching nurture programs that respond to prospect behavior over
+    time.
+- name: Forms and Landing Pages
+  description: Capture leads via Pardot-hosted forms, form handlers, and landing pages that feed Salesforce campaigns.
+- name: Email Marketing
+  description: Send list, automated, and one-to-one emails with dynamic content, A/B testing, and engagement metrics.
+- name: Salesforce CRM Integration
+  description: Bi-directional sync with Salesforce Sales Cloud for unified lead and opportunity data, campaign influence
+    reporting, and ROI analysis.
+- name: B2B Marketing Analytics
+  description: Pre-built CRM Analytics dashboards for pipeline contribution, account engagement, and marketing ROI
+    measurement.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
-
+- FN: Kin Lane
+  email: kin@apievangelist.com
 x-enrichment:
   date: '2026-08-13'
   status: enriched
   artifacts_added: 28
   pass: local-v1
+x-parent: salesforce
+x-relationship: acquisition
