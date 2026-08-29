@@ -7,6 +7,19 @@ description: Salesforce Marketing Cloud Account Engagement, formerly known as Pa
   OAuth 2.0 authentication and requires a Business Unit ID header, with hosts at pi.pardot.com (production) and
   pi.demo.pardot.com (sandbox).
 type: Index
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: request
