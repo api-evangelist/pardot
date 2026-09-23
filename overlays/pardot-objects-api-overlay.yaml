@@ -2,7 +2,7 @@ overlay: 1.0.0
 info:
   title: API Evangelist enhancements — Account Engagement (Pardot) API v5 Objects
   version: 1.0.0
-  description: 'Overlay of API Evangelist enhancements over openapi/pardot-objects-api-openapi.yml. Salesforce publishes
+  x-description: 'Overlay of API Evangelist enhancements over openapi/pardot-objects-api-openapi.yml. Salesforce publishes
     NO OpenAPI for Account Engagement; the spec this overlay extends was written by API Evangelist from the provider''s
     own v5 reference pages. This overlay adds what the underlying spec lacks and the docs do state: stable operationIds,
     the shared v5 request/response semantics, the OAuth 2.0 flow and the required Pardot-Business-Unit-Id header,

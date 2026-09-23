@@ -1,7 +1,7 @@
 {
   "provider": "pardot",
   "sources": [
-    "pardot-objects-api-openapi.yml"
+    "_original/pardot-openapi.yml"
   ],
   "outputs": [
     "pardot-objects-api-openapi.yml"
@@ -9,6 +9,48 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "pardot-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "pardot-openapi.yml: tagged paths GET /objects/prospects -> Objects",
+    "pardot-openapi.yml: tagged paths POST /objects/prospects -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/prospects/{id} -> Objects",
+    "pardot-openapi.yml: tagged paths PATCH /objects/prospects/{id} -> Objects",
+    "pardot-openapi.yml: tagged paths DELETE /objects/prospects/{id} -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/campaigns -> Objects",
+    "pardot-openapi.yml: tagged paths POST /objects/campaigns -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/campaigns/{id} -> Objects",
+    "pardot-openapi.yml: tagged paths PATCH /objects/campaigns/{id} -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/lists -> Objects",
+    "pardot-openapi.yml: tagged paths POST /objects/lists -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/lists/{id} -> Objects",
+    "pardot-openapi.yml: tagged paths PATCH /objects/lists/{id} -> Objects",
+    "pardot-openapi.yml: tagged paths DELETE /objects/lists/{id} -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/list-memberships -> Objects",
+    "pardot-openapi.yml: tagged paths POST /objects/list-memberships -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/opportunities -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/opportunities/{id} -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/emails -> Objects",
+    "pardot-openapi.yml: tagged paths POST /objects/emails -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/emails/{id} -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/forms -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/forms/{id} -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/visits -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/visitors -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/custom-fields -> Objects",
+    "pardot-openapi.yml: tagged paths POST /objects/custom-fields -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/custom-redirects -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/dynamic-content -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/files -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/folders -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/tags -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/tracker-domains -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/users -> Objects",
+    "pardot-openapi.yml: tagged paths GET /objects/layout-templates -> Objects",
+    "pardot-openapi.yml: declared missing tag: Objects",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "pardot-objects-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

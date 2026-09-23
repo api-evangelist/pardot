@@ -90,3 +90,17 @@ security_txt:
   served: false
   note: No RFC 9116 security.txt on any probed host. Salesforce runs its disclosure programme at security.salesforce.com
     and via security@salesforce.com instead — see security/pardot-vulnerability-disclosure.yml.
+hosts:
+- host: ''
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: pardot-openid-configuration.json
+    content_type: application/json
+x-shape-fix:
+  converted: '2026-08-20'
+  from: probes
+  note: Rewritten into hosts[] -> documents[], the only shape well_known_docs() in score.rb reads. A served
+    .well-known surface recorded in any other shape scores as absent. Promoted ONLY the 2xx rows out of
+    the probe log; non-2xx probes are real negative results and were left in place, not converted into
+    documents.
